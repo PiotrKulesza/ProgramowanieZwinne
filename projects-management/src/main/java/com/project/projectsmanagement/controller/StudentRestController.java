@@ -29,6 +29,6 @@ public class StudentRestController {
 
     @DeleteMapping(value = "/student/deleteStudent", params = {"studentId"})
     public boolean deleteStudent(@RequestParam Integer studentId){
-        return studentService.getStudent(studentId);
+        return !studentService.deleteStudent(studentId);
     }
 }

@@ -12,6 +12,6 @@ public interface StudentService {
 
     Maybe<Student> getStudent(Integer studentId);
 
-    boolean deleteStudent(@RequestParam Integer studentId)
+    boolean deleteStudent(@RequestParam Integer studentId);
 
 }
