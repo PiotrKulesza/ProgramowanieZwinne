@@ -17,7 +17,7 @@ public class StudentRestController {
         this.studentService = studentService;
     }
 
-    @PutMapping(value = "/student/updateStudent", params = {"studentId"})
+    /*@PutMapping(value = "/student/updateStudent", params = {"studentId"})
     public void updateStudent(@RequestBody Student student, @RequestParam Integer studentId){
         studentService.updateStudent(student,studentId);
     }
@@ -30,5 +30,5 @@ public class StudentRestController {
     @DeleteMapping(value = "/student/deleteStudent", params = {"studentId"})
     public boolean deleteStudent(@RequestParam Integer studentId){
         return studentService.getStudent(studentId);
-    }
+    }*/
 }

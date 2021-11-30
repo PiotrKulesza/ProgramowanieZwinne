@@ -3,15 +3,17 @@ package com.project.projectsmanagement.service;
 import com.project.projectsmanagement.model.Student;
 import io.reactivex.rxjava3.core.Maybe;
 import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface StudentService {
 
-    Student saveStudent(Student student);
+    Mono<Student> saveStudent(Student student);
 
-    void updateStudent(Student student, Integer studentId);
+    Mono<Student>  updateStudent(Student student, Integer studentId);
 
-    Maybe<Student> getStudent(Integer studentId);
+    Mono<Student> getStudent(Integer studentId);
 
-    boolean deleteStudent(@RequestParam Integer studentId)
+    boolean deleteStudent(@RequestParam Integer studentId);
 
 }

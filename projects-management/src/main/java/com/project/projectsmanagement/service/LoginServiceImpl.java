@@ -7,6 +7,7 @@ import com.project.projectsmanagement.repositories.LoginRepository;
 import io.reactivex.rxjava3.core.Maybe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
 public class LoginServiceImpl implements LoginService{
@@ -42,8 +43,8 @@ public class LoginServiceImpl implements LoginService{
         if(loginTest.getEmail()!=null){
 
             if(loginTest.getStudent()==null && login.getStudent()!=null){
-                Student student = studentService.saveStudent(login.getStudent());
-                loginTest.setStudent(student);
+                Mono<Student> student = studentService.saveStudent(login.getStudent());
+                loginTest.setStudent(student.blockOptional().get());
                 loginRepository.save(loginTest);
                 addedStudent=true;
             }
@@ -75,8 +76,8 @@ public class LoginServiceImpl implements LoginService{
             }
 
             if(login.getStudent()!=null){
-                Student student = studentService.saveStudent(login.getStudent());
-                login.setStudent(student);
+                Mono<Student> student = studentService.saveStudent(login.getStudent());
+                login.setStudent(student.blockOptional().get());
                 addedStudent=true;
             }
 
