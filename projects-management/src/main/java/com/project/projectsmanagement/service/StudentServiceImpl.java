@@ -47,7 +47,9 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public boolean deleteStudent(Integer studentId) {
-        return false;
+         studentRepository.deleteById(studentId);
+         boolean result;
+         return studentRepository.findById(studentId).isPresent();
     }
 
 
