@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 
 
-@RestController
-@RequestMapping("/api")
+//@RestController
+//@RequestMapping("/api")
 public class LoginRestController {
 
-    private LoginService loginService;
+    /*private LoginService loginService;
 
     @Autowired
     public LoginRestController(LoginService loginService) {
@@ -53,7 +53,7 @@ public class LoginRestController {
 
         return loginService.updatePassword(oldPass,newPass,loginId);
 
-    }
+    }*/
 
 
 

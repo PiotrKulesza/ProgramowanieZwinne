@@ -16,7 +16,7 @@ public class LoginServiceImpl implements LoginService{
     private final StudentService studentService;
     private final LecturerService lecturerService;
 
-    @Autowired
+
     public LoginServiceImpl(LoginRepository loginRepository, StudentService studentService
             ,LecturerService lecturerService){
         this.loginRepository=loginRepository;
@@ -26,20 +26,22 @@ public class LoginServiceImpl implements LoginService{
 
 
     @Override
-    public Maybe<Login> getUser(String email, String password) {
-        Maybe<Login> user = loginRepository.findLoginByEmailAndPassword(email,password);
-        Maybe<Login> userNew = user.flatMap(x->{
-            x.setPassword("");
-            return Maybe.just(x);
+    public Mono<Login> getUser(String email, String password) {
+        Mono<Login> user = loginRepository.findLoginByEmailAndPassword(email,password);
+        user.flatMap(login -> {
+            login.setPassword("");
+            return Mono.just(login);
         });
-        return userNew;
+
+        return user;
     }
 
     @Override
     public Integer newUser(Login login) {
         boolean addedStudent=false;
         boolean addedLecturer=false;
-        Login loginTest = loginRepository.findLoginByEmail(login.getEmail());
+        Login loginTest = loginRepository.findLoginByEmail(login.getEmail()).blockOptional().get();
+
         if(loginTest.getEmail()!=null){
 
             if(loginTest.getStudent()==null && login.getStudent()!=null){
@@ -50,8 +52,8 @@ public class LoginServiceImpl implements LoginService{
             }
 
             if(loginTest.getLecturer()==null && login.getLecturer()!=null){
-                Lecturer lecturer = lecturerService.newLecturer(login.getLecturer());
-                loginTest.setLecturer(lecturer);
+                Mono<Lecturer> lecturer = lecturerService.newLecturer(login.getLecturer());
+                loginTest.setLecturer(lecturer.blockOptional().get());
                 loginRepository.save(loginTest);
                 addedLecturer=true;
             }
@@ -70,8 +72,8 @@ public class LoginServiceImpl implements LoginService{
 
         }else{
             if(login.getLecturer()!=null){
-                Lecturer lecturer = lecturerService.newLecturer(login.getLecturer());
-                login.setLecturer(lecturer);
+                Mono<Lecturer> lecturer = lecturerService.newLecturer(login.getLecturer());
+                login.setLecturer(lecturer.blockOptional().get());
                 addedLecturer=true;
             }
 
@@ -83,7 +85,7 @@ public class LoginServiceImpl implements LoginService{
 
             if(login.getLecturer()==null && login.getStudent()==null)return 5;
 
-            if(loginRepository.save(login).getLoginId() == null){
+            if(loginRepository.save(login).blockOptional().get().getLoginId() == null){
                 return 4;
             }else{
                 if(addedStudent && addedLecturer){
@@ -102,11 +104,11 @@ public class LoginServiceImpl implements LoginService{
     @Override
     public Integer updatePassword(String oldPass, String newPass, Integer loginId) {
 
-        Login login = loginRepository.getById(loginId);
+        Login login = loginRepository.findById(loginId).blockOptional().get();
 
         if(login.getPassword().equals(oldPass)){
             login.setPassword(newPass);
-            login = loginRepository.save(login);
+            login = loginRepository.save(login).blockOptional().get();
             if(login.getPassword().equals(newPass)) return 0;
             return 1;
         }else return 2;

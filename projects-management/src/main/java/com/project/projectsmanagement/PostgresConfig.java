@@ -1,4 +1,4 @@
-package com.project.projectsmanagement.config;
+package com.project.projectsmanagement;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
