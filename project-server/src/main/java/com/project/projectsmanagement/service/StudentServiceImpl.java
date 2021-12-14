@@ -71,8 +71,16 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	public Mono<Student> getStudentByLogin(String email, String pass) {
+		System.out.println("Coś sie dzieje");
+		return studentRepository.findByLoginEmailAndPassword(email,pass);
+	}
+
+	@Override
 	public Flux<Student> getStudenci() {
 		return studentRepository.findAll();
 	}
+
+
 
 }
