@@ -30,11 +30,11 @@ class LoginStudent extends React.Component {
         }).then(response => response.data)
             .then((data)=>{
                 this.setState({student:data});
-
-                if ('null' !== this.state.student.student_id && typeof this.student.studentId !== "undefined") {
-                        localStorage.setItem('loggedUser', this.student.studentId);
+                console.log(this.state.student.studentId)
+                if ('null' !== this.state.student.studentId && typeof this.state.student.studentId !== "undefined") {
+                        localStorage.setItem('loggedUser', this.state.student.studentId);
                         localStorage.setItem('typeOfUser', 'STUDENT');
-                        window.location = "/student/";
+                        window.location = "/student";
                 }
                 else {
                     this.state.textError="Podano niewałaściwy email albo hasło.";
