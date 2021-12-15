@@ -26,7 +26,7 @@ class LoginStudent extends React.Component {
         console.log(this.state.email)
         axios({
             method:'get',
-            url: 'http://localhost:8080/students/getStudentByLogin?email=piokul003@pbs.edu.pl&password=1245'
+            url: 'http://localhost:8080/students/getStudentByLogin?email='+this.state.email+'&password='+this.state.password
         }).then(response => response.data)
             .then((data)=>{
                 this.setState({student:data});
