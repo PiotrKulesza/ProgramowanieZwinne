@@ -1,5 +1,7 @@
 package com.project.projectsmanagement.controller;
 
+import java.net.URI;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -24,6 +26,14 @@ public class StudentHandler {
 				.body(studentService.getStudenci(), Student.class); 
 	}
 
+	public Mono<ServerResponse> createStudent(ServerRequest request) {
+        return request
+        		.bodyToMono(Student.class)  
+        		.flatMap(this.studentService::saveStudent)
+        		.flatMap(s -> ServerResponse
+        				   .created(URI.create(String.format("/students/%d", s.getStudentId())))
+        				   .build());
+    }
 	
 	public Mono<ServerResponse> updateStudent(ServerRequest request) {
 
@@ -34,7 +44,6 @@ public class StudentHandler {
 	}
 
 	public Mono<ServerResponse> getStudent(ServerRequest request) {
-
 		return studentService.getStudent(Integer.valueOf(request.pathVariable("id")))
 				.flatMap(student -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(student));
 	}
@@ -42,16 +51,11 @@ public class StudentHandler {
 
 	public Mono<ServerResponse> deleteStudent(ServerRequest request) {
 		System.out.println("TEST");
-		return Mono.just(studentService.deleteStudent(Integer.parseInt(request.pathVariable("id"))))
+		return Mono.just(studentService
+					.deleteStudent(Integer.parseInt(request.pathVariable("id"))))
 				.flatMap(val-> ServerResponse.noContent().build());
 
 
-	}
-
-	public Mono<ServerResponse> getStudentByLogin(ServerRequest request) {
-
-		return studentService.getStudentByLogin(request.queryParam("email").get(),request.queryParam("password").get())
-				.flatMap(student -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(student));
 	}
 
 }

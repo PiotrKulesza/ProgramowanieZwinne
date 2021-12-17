@@ -2,32 +2,29 @@ package com.project.projectsmanagement.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import static org.springframework.web.reactive.function.server.RequestPredicates.*;
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
+import static org.springframework.web.reactive.function.server.RequestPredicates.PUT;
+import static org.springframework.web.reactive.function.server.RequestPredicates.contentType;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
 
 @Configuration
-@CrossOrigin(origins = "*")
 public class StudentRouter {
 
     @Bean
     public RouterFunction<ServerResponse> studentRoute(StudentHandler studentHandler) {
-        return RouterFunctions
-        		.route()
-				.GET("/students", studentHandler::getStudenci)
-				.GET("/students/getStudent/{id}", studentHandler::getStudent)
-				.GET("/students/getStudentByLogin"
-						,studentHandler::getStudentByLogin)
-        		.DELETE("/students/deleteStudent/{id}"
-						,studentHandler::deleteStudent).build();
-
-
-				//.andRoute(PUT("/student/updateStudent/{id}")
-				//		.and(contentType(MediaType.APPLICATION_JSON)), studentHandler::updateStudent);
+        return RouterFunctions 
+        		.route(GET("/students"), studentHandler::getStudenci)
+				.andRoute(GET("/students/{id}"), studentHandler::getStudent)
+				.andRoute(POST("/students").and(contentType(APPLICATION_JSON)), 
+												studentHandler::createStudent)
+				.andRoute(PUT("/students").and(contentType(APPLICATION_JSON)), 
+												studentHandler::updateStudent)
+				.andRoute(DELETE("/students/{id}"), studentHandler::deleteStudent);
 
     }
 }

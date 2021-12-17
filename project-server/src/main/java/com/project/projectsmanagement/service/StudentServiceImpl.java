@@ -1,12 +1,14 @@
 package com.project.projectsmanagement.service;
 
-import com.project.projectsmanagement.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
-import com.project.projectsmanagement.model.Student;
-import com.project.projectsmanagement.repositories.StudentRepository;
 import org.springframework.transaction.reactive.TransactionalOperator;
+
+import com.project.projectsmanagement.model.Student;
+import com.project.projectsmanagement.repositories.LoginRepository;
+import com.project.projectsmanagement.repositories.StudentRepository;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -71,16 +73,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Mono<Student> getStudentByLogin(String email, String pass) {
-		System.out.println("Coś sie dzieje");
-		return studentRepository.findByLoginEmailAndPassword(email,pass);
-	}
-
-	@Override
 	public Flux<Student> getStudenci() {
 		return studentRepository.findAll();
 	}
-
-
 
 }

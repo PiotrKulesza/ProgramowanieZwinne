@@ -17,6 +17,4 @@ public interface StudentService {
 
     Mono<Void> deleteStudent(Integer studentId);
 
-    Mono<Student> getStudentByLogin(String email, String pass);
-
 }
