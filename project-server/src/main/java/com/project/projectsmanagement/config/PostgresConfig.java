@@ -2,6 +2,7 @@ package com.project.projectsmanagement.config;
 
 
 import com.project.projectsmanagement.converters.LecturerReadConverter;
+import com.project.projectsmanagement.converters.ProjectReadConverter;
 import com.project.projectsmanagement.converters.StudentReadConverter;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,6 +56,7 @@ public class PostgresConfig extends AbstractR2dbcConfiguration {
 
         list.add(new LecturerReadConverter());
         list.add(new StudentReadConverter());
+        list.add(new ProjectReadConverter());
 
        return list;
     }

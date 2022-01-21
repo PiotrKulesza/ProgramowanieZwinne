@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, Card, Col} from "react-bootstrap";
+import {Button, Form, Card} from "react-bootstrap";
 import axios from 'axios';
 
 class LoginStudent extends React.Component {
@@ -26,7 +26,7 @@ class LoginStudent extends React.Component {
         console.log(this.state.email)
         axios({
             method:'get',
-            url: 'http://localhost:8080/students/getStudentByLogin?email='+this.state.email+'&password='+this.state.password
+            url: 'http://localhost:8080/getStudentByLogin?email='+this.state.email+'&password='+this.state.password
         }).then(response => response.data)
             .then((data)=>{
                 this.setState({student:data});
@@ -37,7 +37,8 @@ class LoginStudent extends React.Component {
                         window.location = "/student";
                 }
                 else {
-                    this.state.textError="Podano niewałaściwy email albo hasło.";
+
+                    this.setState({textError:"Podano niewałaściwy email albo hasło."});
                     this.forceUpdate();
                 }
             });

@@ -58,4 +58,10 @@ public class StudentHandler {
 
 	}
 
+	public Mono<ServerResponse> getStudentByLogin(ServerRequest request) {
+
+		return studentService.getStudentByLogin(request.queryParam("email").get(),request.queryParam("password").get())
+				.flatMap(student -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(student));
+	}
+
 }

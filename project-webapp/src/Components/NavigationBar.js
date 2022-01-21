@@ -13,10 +13,10 @@ class NavigationBar extends React.Component{
 
     componentDidMount() {
 
-        if ('LECTURER' === localStorage.getItem('typeOfUser') || 'LECTURER' === localStorage.getItem('typeOfUser') ) {
+        if ('LECTURER' === localStorage.getItem('typeOfUser') ) {
             window.location = "/lecturer"
         }else
-        if ('STUDENT' === localStorage.getItem('typeOfUser') || 'STUDENT' === localStorage.getItem('typeOfUser') ) {
+        if ('STUDENT' === localStorage.getItem('typeOfUser') ) {
             window.location = "/student"
         }
 
@@ -30,7 +30,7 @@ class NavigationBar extends React.Component{
                 </Link>
                 <Nav className="mr-auto">
                     <Link to="/loginStudent" className={"nav-link"}>Logowanie Studenta</Link>
-                    <Link to="/loginLecturer" className={"nav-link"}>Rejestracja Wykładowcy</Link>
+                    <Link to="/loginLecturer" className={"nav-link"}>Logowanie Wykładowcy</Link>
                 </Nav>
             </Navbar>
         );

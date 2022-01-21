@@ -20,6 +20,7 @@ public class StudentRouter {
         return RouterFunctions 
         		.route(GET("/students"), studentHandler::getStudenci)
 				.andRoute(GET("/students/{id}"), studentHandler::getStudent)
+				.andRoute(GET("/getStudentByLogin"), studentHandler::getStudentByLogin)
 				.andRoute(POST("/students").and(contentType(APPLICATION_JSON)), 
 												studentHandler::createStudent)
 				.andRoute(PUT("/students").and(contentType(APPLICATION_JSON)), 

@@ -10,9 +10,25 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 public class CorsConfig implements WebFluxConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
-        corsRegistry.addMapping("/students/getStudentByLogin")
+        corsRegistry.addMapping("/getStudentByLogin")
                 .allowedOrigins("*")
                 .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/getLecturerByLogin")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/lecturerProjects/{id}")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/lecturer/{id}")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/updateLecturer/{id}")
+                .allowedOrigins("*")
+                .allowedMethods("PUT")
                 .maxAge(3600);
     }
 }

@@ -36,4 +36,6 @@ public class Project {
 
 	private LocalDate dataOddania;
 
+	private Lecturer lecturer;
+
 }

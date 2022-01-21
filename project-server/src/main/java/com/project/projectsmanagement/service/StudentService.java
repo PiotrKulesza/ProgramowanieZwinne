@@ -7,8 +7,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface StudentService {
-	Flux<Student> getStudenci();
-	
+    Flux<Student> getStudenci();
+
     Mono<Student> saveStudent(Student student);
 
     Mono<Student>  updateStudent(Student student, Integer studentId);
@@ -16,5 +16,8 @@ public interface StudentService {
     Mono<Student> getStudent(Integer studentId);
 
     Mono<Void> deleteStudent(Integer studentId);
+
+    Mono<Student> getStudentByLogin(String email, String pass);
+
 
 }

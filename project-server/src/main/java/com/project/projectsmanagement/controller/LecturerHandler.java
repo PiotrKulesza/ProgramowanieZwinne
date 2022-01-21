@@ -26,9 +26,23 @@ public class LecturerHandler {
     }
 
     public Mono<ServerResponse> getLecturer(ServerRequest request) {
-
+        System.out.println("Test");
         return lecturerService.getLecturer(Integer.valueOf(request.pathVariable("id")))
                 .flatMap(lecturer -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(lecturer));
+    }
+
+    public Mono<ServerResponse> getLecturerByLogin(ServerRequest request) {
+
+        return lecturerService.getLecturerByLogin(request.queryParam("email").get(),request.queryParam("password").get())
+                .flatMap(lecturer -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(lecturer));
+    }
+
+    public Mono<ServerResponse> updateLecturer(ServerRequest request) {
+
+        System.out.println("TEST");
+        return Mono.just(lecturerService.updateImie(Integer.valueOf(request.pathVariable("id"))
+                ,request.queryParam("imie").get()))
+                .flatMap(val-> ServerResponse.noContent().build());
     }
 
 }

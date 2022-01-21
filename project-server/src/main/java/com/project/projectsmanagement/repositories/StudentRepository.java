@@ -23,4 +23,7 @@ public interface StudentRepository extends ReactiveCrudRepository<Student, Integ
 	@Override
 	@Query("DELETE FROM student WHERE student.student_id=:studentId")
 	Mono<Void> deleteById(Publisher<Integer> studentId);
+
+	@Query("SELECT student.*, login.login_id AS login_id, login.email AS email FROM student JOIN login ON login.login_id=student.login_id WHERE login.email = :email AND login.password = :pass")
+	Mono<Student > findByLoginEmailAndPassword(String email, String pass);
 }
