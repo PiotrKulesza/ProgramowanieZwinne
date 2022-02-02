@@ -17,43 +17,18 @@ import reactor.core.publisher.Mono;
 public class StudentServiceImpl implements StudentService {
 
 	private final StudentRepository studentRepository;
-	private final LoginRepository loginRepository;
 	private final TransactionalOperator transactionalOperator;
 	private final DatabaseClient databaseClient;
 
 
 	@Autowired
-	public StudentServiceImpl(StudentRepository studentRepository, LoginRepository loginRepository
-			, TransactionalOperator transactionalOperator, DatabaseClient databaseClient) {
+	public StudentServiceImpl(StudentRepository studentRepository, TransactionalOperator transactionalOperator, DatabaseClient databaseClient) {
 		this.studentRepository = studentRepository;
-		this.loginRepository = loginRepository;
+
 		this.transactionalOperator = transactionalOperator;
 		this.databaseClient = databaseClient;
 	}
 
-	@Override
-	public Mono<Student> saveStudent(Student student) {
-		return studentRepository.save(student);
-	}
-
-	@Override
-	public Mono<Student> updateStudent(Student student, Integer studentId) {
-
-		Mono<Student> studentDB = studentRepository.findByStudentId(studentId);
-		studentDB.map(s -> {
-			if (student.getImie() != null)
-				s.setImie(student.getImie());
-			if (student.getNazwisko() != null)
-				s.setNazwisko(student.getNazwisko());
-			if (student.getNrIndeksu() != null)
-				s.setNrIndeksu(student.getNrIndeksu());
-			if (student.isStacjonarny() != s.isStacjonarny())
-				s.setStacjonarny(student.isStacjonarny());
-			return s;
-		});
-
-		return studentRepository.save(studentDB.blockOptional().get());
-	}
 
 	@Override
 	public Mono<Student> getStudent(Integer studentId) {
@@ -62,7 +37,6 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-
 	public Mono<Void> deleteStudent(final Integer studentId) {
 
 		return databaseClient
@@ -74,8 +48,36 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Mono<Student> getStudentByLogin(String email, String pass) {
-		System.out.println("Coœ sie dzieje");
 		return studentRepository.findByLoginEmailAndPassword(email,pass);
+	}
+
+	@Override
+	public Mono<Void> postStudent(Student student) {
+		return databaseClient
+				.sql("INSERT INTO student (imie, nazwisko, nrindeksu, login_id) VALUES " +
+						"(:imie, :nazwisko, :nrIndeksu, :loginId)")
+				.bind("imie", student.getImie())
+				.bind("nazwisko", student.getNazwisko())
+				.bind("nrIndeksu", student.getNrIndeksu())
+				.bind("loginId", student.getLogin().getLoginId())
+				.fetch()
+				.rowsUpdated()
+				.then().as(transactionalOperator::transactional);
+	}
+
+	@Override
+	public Mono<Student> getStudentByNrIndeksu(String nrIndeksu) {
+		return studentRepository.findByNrIndeksu(nrIndeksu);
+	}
+
+	@Override
+	public Flux<Student> getStudentsByProject(Integer projectId) {
+		return studentRepository.findByProject(projectId);
+	}
+
+	@Override
+	public Mono<Student> getStudentInProject(Integer projectId, Integer studentId) {
+		return studentRepository.findInProject(projectId,studentId);
 	}
 
 	@Override

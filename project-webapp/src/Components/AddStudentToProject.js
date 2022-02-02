@@ -2,12 +2,14 @@ import React from "react";
 import axios from 'axios';
 import {Button, Card, Col, Form} from "react-bootstrap";
 
-class EditName extends React.Component{
+class EditSurname extends React.Component{
     constructor(props) {
         super(props);
+        const queryParams = new URLSearchParams(window.location.search);
         this.state = {
+            projectId:queryParams.get('projectId'),
             userId: '',
-            imie: '',
+            nrIndeksu: '',
             userType:''
         };
         this.valueChange = this.valueChange.bind(this)
@@ -22,17 +24,33 @@ class EditName extends React.Component{
 
     submitChange (event) {
 
-        let buildUrl = ''
-        if(this.state.userType==="student")
-            buildUrl='updateStudent'
-        else
-            buildUrl='updateLecturer'
 
         axios({
-            method:'put',
-            url:'http://localhost:8080/'+buildUrl+'/'+this.state.userId+'?imie='+this.state.imie,
-        }).then(()=>{
-            window.location = "/"+this.state.userType+"/profile";
+            method:'get',
+            url:'http://localhost:8080/getStudentByNrIndeksu?nrIndeksu='+this.state.nrIndeksu,
+        }).then(response => response.data)
+            .then((data)=>{
+                let tmp = data.studentId
+                axios({
+                    method:'get',
+                    url:'http://localhost:8080/getStudentInProject?studentId='+data.studentId+
+                    '&projectId='+this.state.projectId,
+                }).then(response => response.data)
+                    .then((data)=>{
+                            if(data.studentId === undefined)
+                                axios({
+                                    method:'post',
+                                    url:'http://localhost:8080/addStudentToProject?studentId='+tmp+
+                                        '&projectId='+this.state.projectId,
+                                }).then(()=>{
+                                    window.location = "/lecturer/projects/studentList?projectId="+this.state.projectId;
+                                });
+
+                            //
+                        }
+                    )
+                ;
+                //window.location = "/lecturer/projects/studentList?projectId="+this.state.projectId;
             }
         )
         ;
@@ -44,13 +62,6 @@ class EditName extends React.Component{
     componentDidMount() {
 
         this.setState({userId:localStorage.getItem('loggedUser')})
-        if ('STUDENT' === localStorage.getItem('typeOfUser')) {
-            this.setState({userType:"student"})
-
-        }else{
-            this.setState({userType:"lecturer"})
-
-        }
     }
 
     render() {
@@ -60,15 +71,15 @@ class EditName extends React.Component{
                     <Card.Body>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Nowe imię użytkonwika</Form.Label>
+                                <Form.Label>Podaj numer indeksu Studenta</Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
                                     autoComplete={"off"}
-                                    name={"imie"}
-                                    value={this.state.imie}
+                                    name={"nrIndeksu"}
+                                    value={this.state.nrIndeksu}
                                     onChange={this.valueChange}
-                                    placeholder="imie"
+                                    placeholder="nrIndeksu"
                                     className={"bg-dark text-white"}
                                 />
                             </Form.Group>
@@ -87,4 +98,4 @@ class EditName extends React.Component{
     }
 }
 
-export default EditName;
+export default EditSurname;

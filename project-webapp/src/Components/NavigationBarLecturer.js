@@ -25,11 +25,11 @@ class NavigationBarLecturer extends React.Component{
                     Wykładowca
                 </Link>
                 <Nav className="mr-auto">
-                    <Link to="/lecturer/profil" className={"nav-link"}>Profil Uzytkonwika</Link>
-                    <Link to="/lecturer/projekty" className={"nav-link"}>Projekty</Link>
+                    <Link to="/lecturer/profile" className={"nav-link"}>Profil Uzytkonwika</Link>
+                    <Link to="/lecturer/projects" className={"nav-link"}>Projekty</Link>
                     <Link to="/lecturer/newLecturer" className={"nav-link"}>Dodaj wykładowcę</Link>
-                    <Link to="/lecturer/newStudent" className={"nav-link"}>Dodaj studenta</Link>
-                    <Link to="/loggout" className={"nav-link"} style={{ marginRight: "auto" }}>Wyloguj</Link>
+                    <Link to="/lecturer/studentList" className={"nav-link"}>Studenci</Link>
+                    <Link to="/logout" className={"nav-link"} style={{ marginRight: "auto" }}>Wyloguj</Link>
                 </Nav>
             </Navbar>
         );

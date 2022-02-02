@@ -1,7 +1,7 @@
 import React from "react";
 import {Navbar} from "react-bootstrap";
 
-class Loggout extends React.Component{
+class Logout extends React.Component{
 
     componentDidMount(){
         localStorage.clear();
@@ -16,4 +16,4 @@ class Loggout extends React.Component{
     }
 }
 
-export default Loggout;
+export default Logout;

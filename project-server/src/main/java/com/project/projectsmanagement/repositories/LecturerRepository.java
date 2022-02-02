@@ -23,4 +23,7 @@ public interface LecturerRepository extends ReactiveCrudRepository<Lecturer, Int
     @Query("SELECT lecturer.*, lecturer.login_id AS login_id, login.email AS email FROM lecturer JOIN login ON login.login_id=lecturer.login_id WHERE login.email = :email AND login.password = :pass")
     Mono<Lecturer> findByLoginEmailAndPassword(String email, String pass);
 
+    @Query("SELECT lecturer.*, lecturer.login_id AS login_id, login.email AS email FROM lecturer JOIN login ON login.login_id=lecturer.login_id WHERE login.nrindeksu = :nrIndeksu")
+    Mono<Lecturer> findByNrIndeksu(String nrIndeksu);
+
 }

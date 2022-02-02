@@ -1,6 +1,6 @@
 import React from "react";
 import axios from 'axios';
-import {Table, Card} from "react-bootstrap";
+import {Table, Card, Button} from "react-bootstrap";
 
 class ProjectListLecturer extends React.Component{
 
@@ -8,36 +8,16 @@ class ProjectListLecturer extends React.Component{
         super(props);
         this.state = {
             lecturerId: '',
-            text: '',
             projects: []
         };
-        this.valueChange = this.valueChange.bind(this)
-        this.submitSearch = this.submitSearch.bind(this)
-    }
 
-    valueChange  (event){
-        this.setState({
-            [event.target.name]:event.target.value
-        })
-    }
 
-    submitSearch (event) {
-
-        axios({
-            method:'get',
-            url:'http://localhost:8080/getUserByText?text='+this.state.text,
-        }).then(response => response.data)
-            .then((data) =>{
-                this.setState({users: data});
-            });
-        this.forceUpdate();
-        event.preventDefault();
     }
 
     componentDidMount() {
         this.setState({lecturerId:localStorage.getItem('loggedUser')})
         console.log(localStorage.getItem('loggedUser'))
-        axios.get("http://localhost:8080/lecturerProjects/"+this.state.lecturerId)
+        axios.get("http://localhost:8080/lecturerProjects/"+localStorage.getItem('loggedUser'))
             .then(response => response.data)
             .then((data) =>{
                 this.setState({projects: data});
@@ -49,6 +29,7 @@ class ProjectListLecturer extends React.Component{
         return (
             <Card className={"border border-dark bg-dark text-black"}>
                 <Card.Header>
+                    <Button variant="primary" href={"/lecturer/projects/addProject"}>Dodaj</Button>{' '}
                 </Card.Header>
                 <Card.Body>
                     <Table striped bordered hover variant="dark">
@@ -74,10 +55,23 @@ class ProjectListLecturer extends React.Component{
                                     <td>{project.projectId}</td>
                                     <td>{project.nazwa}</td>
                                     <td>{project.opis}</td>
-                                    <td>{project.dataczasUtworzenia}</td>
-                                    <td>{project.dataczasEdycji}</td>
-                                    <td>{project.dataOddania}</td>
-                                    <td>Coś tam</td>
+                                    <td>{project.dataczasUtworzenia[0]+"-"+project.dataczasUtworzenia[1]+"-"
+                                    +project.dataczasUtworzenia[2]}</td>
+                                    {project.dataczasEdycji === null ?
+                                        <td>Nie edytowane</td>
+                                    :  <td>{project.dataczasEdycji[0]+"-"+project.dataczasEdycji[1]+"-"
+                                        +project.dataczasEdycji[2]}</td>
+                                    }
+                                    {project.dataOddania === null ?
+                                        <td>Nie oddane</td>
+                                        :  <td>{project.dataOddania[0]+"-"+project.dataOddania[1]+"-"+project.dataOddania[2]}</td>
+                                    }
+                                    <td>
+                                        <Button variant="primary" size="sm" href={"/lecturer/projects/stude" +
+                                        "ntList?projectId="+project.projectId}>Studenci</Button>{' '}
+                                        <Button variant="primary" size="sm" href={"/lecturer/projects/task" +
+                                        "List?projectId="+project.projectId}>Zadania</Button>
+                                   </td>
                                 </tr>
 
                                 ))

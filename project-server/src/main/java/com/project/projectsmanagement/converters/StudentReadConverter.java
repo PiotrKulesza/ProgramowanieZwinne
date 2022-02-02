@@ -29,7 +29,6 @@ public class StudentReadConverter  implements Converter<Row, Student> {
         student.setImie(source.get("imie",String.class));
         student.setNazwisko(source.get("nazwisko",String.class));
         student.setNrIndeksu(source.get("nrindeksu",String.class));
-        student.setStacjonarny(source.get("stacjonarny",Boolean.class));
 
         return student;
     }

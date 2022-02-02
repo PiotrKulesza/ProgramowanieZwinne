@@ -7,7 +7,8 @@ import reactor.core.publisher.Flux;
 
 public interface ProjectRepository extends ReactiveCrudRepository<Project, Integer> {
 
-    @Query("SELECT project.*, lecturer.* FROM project JOIN lecturer ON project.lecturer_id=lecturer.lecturer_id WHERE lecturer.lecturer_id = :lecturerId")
+    @Query("SELECT project.*, lecturer.* FROM project JOIN lecturer ON project.lecturer_id=lecturer.lecturer_id WHERE " +
+            "lecturer.lecturer_id = :lecturerId ORDER BY project.project_id")
     Flux<Project> findByLecturer(Integer lecturerId);
 
 }

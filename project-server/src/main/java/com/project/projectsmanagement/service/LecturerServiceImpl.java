@@ -24,11 +24,6 @@ public class LecturerServiceImpl implements LecturerService {
 	}
 
 	@Override
-	public Mono<Lecturer> newLecturer(Lecturer lecturer) {
-		return lecturerRepository.save(lecturer);
-	}
-
-	@Override
 	public Flux<Lecturer> findAll() {
 		return lecturerRepository.findAll();
 	}
@@ -45,20 +40,37 @@ public class LecturerServiceImpl implements LecturerService {
 
 	@Override
 	public Mono<Void> updateImie(Integer lecturerId, String imie) {
-		System.out.println(lecturerId);
-		System.out.println(imie);
-		Mono<Lecturer> lecturer = lecturerRepository.findById(lecturerId);
-		lecturer.flatMap(lecturer1 -> {
-			lecturer1.setImie(imie);
-			lecturerRepository.save(lecturer1);
-			return Mono.just(lecturer1);
-		});
 		return databaseClient
 				.sql("UPDATE lecturer SET imie = :imie WHERE lecturer_id = :lecturerId")
-				.bind("lecturerId",lecturerId)
-				.bind("imie",imie)
-				.fetch().rowsUpdated().then();
-				//.then().as(transactionalOperator::transactional);
+				.bind("lecturerId", lecturerId)
+				.bind("imie", imie)
+				.fetch()
+				.rowsUpdated()
+				.then().as(transactionalOperator::transactional);
+	}
+
+	@Override
+	public Mono<Void> updateNazwisko(Integer lecturerId, String nazwisko) {
+		return databaseClient
+				.sql("UPDATE lecturer SET nazwisko = :nazwisko WHERE lecturer_id = :lecturerId")
+				.bind("lecturerId", lecturerId)
+				.bind("nazwisko", nazwisko)
+				.fetch()
+				.rowsUpdated()
+				.then().as(transactionalOperator::transactional);
+	}
+
+	@Override
+	public Mono<Void> postLecturer(Lecturer lecturer) {
+		return databaseClient
+				.sql("INSERT INTO lecturer (imie, nazwisko,  login_id) VALUES " +
+						"(:imie, :nazwisko,  :loginId)")
+				.bind("imie", lecturer.getImie())
+				.bind("nazwisko", lecturer.getNazwisko())
+				.bind("loginId", lecturer.getLogin().getLoginId())
+				.fetch()
+				.rowsUpdated()
+				.then().as(transactionalOperator::transactional);
 	}
 
 

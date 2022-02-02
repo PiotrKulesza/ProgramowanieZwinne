@@ -26,9 +26,59 @@ public class CorsConfig implements WebFluxConfigurer {
                 .allowedOrigins("*")
                 .allowedMethods("GET")
                 .maxAge(3600);
+        corsRegistry.addMapping("/students")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/getLoginByEmail")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/getStudentsByProject")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/getStudentByNrIndeksu")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/getStudentInProject")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/getTaskByProject")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
         corsRegistry.addMapping("/updateLecturer/{id}")
                 .allowedOrigins("*")
                 .allowedMethods("PUT")
                 .maxAge(3600);
+        corsRegistry.addMapping("/loginUpdate")
+                .allowedOrigins("*")
+                .allowedMethods("PUT")
+                .maxAge(3600);
+        corsRegistry.addMapping("/addProject")
+                .allowedOrigins("*")
+                .allowedMethods("POST")
+                .maxAge(3600);
+        corsRegistry.addMapping("/postLogin")
+                .allowedOrigins("*")
+                .allowedMethods("POST")
+                .maxAge(3600);
+        corsRegistry.addMapping("/postStudent")
+                .allowedOrigins("*")
+                .allowedMethods("POST")
+                .maxAge(3600);
+        corsRegistry.addMapping("/postLecturer")
+                .allowedOrigins("*")
+                .allowedMethods("POST")
+                .maxAge(3600);
+        corsRegistry.addMapping("/addStudentToProject")
+                .allowedOrigins("*")
+                .allowedMethods("POST")
+                .maxAge(3600);
+
+
     }
 }

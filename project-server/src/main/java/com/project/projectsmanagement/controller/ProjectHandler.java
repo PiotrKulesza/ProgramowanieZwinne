@@ -22,15 +22,29 @@ public class ProjectHandler {
 
 
     public Mono<ServerResponse> getProjectsByLecturer(ServerRequest request) {
-        projectService.getProjectsByLecturer(Integer.valueOf(request.pathVariable("id"))).flatMap(project -> {System.out.println(project);
-            return null;
-        });
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(projectService.getProjectsByLecturer(Integer.valueOf(request.pathVariable("id"))), Project.class);
+    }
 
+    public Mono<ServerResponse> postProject(ServerRequest request) {
+        if(request.queryParam("lecturerId").isPresent() && request.queryParam("opis").isPresent()
+                && request.queryParam("nazwa").isPresent())
+            return projectService.postProject(request.queryParam("nazwa").get(),
+                    request.queryParam("opis").get(),
+                    Integer.valueOf(request.queryParam("lecturerId").get()))
+                    .then(ServerResponse.noContent().build());
+        return ServerResponse.badRequest().build();
+    }
 
-
+    public Mono<ServerResponse> addStudentToProject(ServerRequest request){
+        System.out.println("TEST");
+        if(request.queryParam("projectId").isPresent() && request.queryParam("studentId").isPresent()){
+            return projectService.addStudentToProject(Integer.valueOf(request.queryParam("projectId").get()),
+                    Integer.valueOf(request.queryParam("studentId").get()))
+                    .then(ServerResponse.noContent().build());
+        }
+        return ServerResponse.badRequest().build();
     }
 
 }

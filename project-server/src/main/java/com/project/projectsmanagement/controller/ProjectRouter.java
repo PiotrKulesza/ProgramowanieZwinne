@@ -15,7 +15,9 @@ public class ProjectRouter {
     @Bean
     public RouterFunction<ServerResponse> projectRoute(ProjectHandler projectHandler) {
         return RouterFunctions
-                .route(GET("/lecturerProjects/{id}"), projectHandler::getProjectsByLecturer);
+                .route(GET("/lecturerProjects/{id}"), projectHandler::getProjectsByLecturer)
+                .andRoute(POST("/addProject"),projectHandler::postProject)
+                .andRoute(POST("/addStudentToProject"),projectHandler::addStudentToProject);
 
 
     }

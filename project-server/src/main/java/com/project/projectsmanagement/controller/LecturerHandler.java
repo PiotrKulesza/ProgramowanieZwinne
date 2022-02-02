@@ -1,12 +1,15 @@
 package com.project.projectsmanagement.controller;
 
-import com.project.projectsmanagement.model.Lecturer;
+import com.project.projectsmanagement.model.Login;
 import com.project.projectsmanagement.model.Student;
-import com.project.projectsmanagement.service.LecturerService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import com.project.projectsmanagement.model.Lecturer;
+import com.project.projectsmanagement.service.LecturerService;
+
 import reactor.core.publisher.Mono;
 
 @Component
@@ -26,7 +29,7 @@ public class LecturerHandler {
     }
 
     public Mono<ServerResponse> getLecturer(ServerRequest request) {
-        System.out.println("Test");
+
         return lecturerService.getLecturer(Integer.valueOf(request.pathVariable("id")))
                 .flatMap(lecturer -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(lecturer));
     }
@@ -38,11 +41,30 @@ public class LecturerHandler {
     }
 
     public Mono<ServerResponse> updateLecturer(ServerRequest request) {
+        if(request.queryParam("imie").isPresent())
+            return lecturerService
+                .updateImie(Integer.valueOf(request.pathVariable("id")), request.queryParam("imie").get())
+                .then(ServerResponse.noContent().build());
+        else if(request.queryParam("nazwisko").isPresent())
+            return lecturerService
+                    .updateNazwisko(Integer.valueOf(request.pathVariable("id")), request.queryParam("nazwisko").get())
+                    .then(ServerResponse.noContent().build());
+        return ServerResponse.badRequest().build();
+    }
 
-        System.out.println("TEST");
-        return Mono.just(lecturerService.updateImie(Integer.valueOf(request.pathVariable("id"))
-                ,request.queryParam("imie").get()))
-                .flatMap(val-> ServerResponse.noContent().build());
+    public Mono<ServerResponse> postLecturer(ServerRequest request) {
+        if(request.queryParam("imie").isPresent() && request.queryParam("nazwisko").isPresent()
+                &&  request.queryParam("loginId").isPresent()){
+            Lecturer lecturer = new Lecturer();
+            Login login = new Login();
+            login.setLoginId(Integer.valueOf(request.queryParam("loginId").get()));
+            lecturer.setLogin(login);
+            lecturer.setNazwisko(request.queryParam("nazwisko").get());
+            lecturer.setImie(request.queryParam("imie").get());
+            return lecturerService.postLecturer(lecturer)
+                    .then(ServerResponse.noContent().build());
+        }
+        return ServerResponse.badRequest().build();
     }
 
 }

@@ -2,12 +2,12 @@ import React from "react";
 import axios from 'axios';
 import {Button, Card, Col, Form} from "react-bootstrap";
 
-class EditName extends React.Component{
+class EditSurname extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             userId: '',
-            imie: '',
+            nazwisko: '',
             userType:''
         };
         this.valueChange = this.valueChange.bind(this)
@@ -30,9 +30,9 @@ class EditName extends React.Component{
 
         axios({
             method:'put',
-            url:'http://localhost:8080/'+buildUrl+'/'+this.state.userId+'?imie='+this.state.imie,
+            url:'http://localhost:8080/'+buildUrl+'/'+this.state.userId+'?nazwisko='+this.state.nazwisko,
         }).then(()=>{
-            window.location = "/"+this.state.userType+"/profile";
+                window.location = "/"+this.state.userType+"/profile";
             }
         )
         ;
@@ -65,10 +65,10 @@ class EditName extends React.Component{
                                     required
                                     type="text"
                                     autoComplete={"off"}
-                                    name={"imie"}
-                                    value={this.state.imie}
+                                    name={"nazwisko"}
+                                    value={this.state.nazwisko}
                                     onChange={this.valueChange}
-                                    placeholder="imie"
+                                    placeholder="nazwisko"
                                     className={"bg-dark text-white"}
                                 />
                             </Form.Group>
@@ -87,4 +87,4 @@ class EditName extends React.Component{
     }
 }
 
-export default EditName;
+export default EditSurname;

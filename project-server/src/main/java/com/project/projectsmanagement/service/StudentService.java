@@ -9,9 +9,6 @@ import reactor.core.publisher.Mono;
 public interface StudentService {
     Flux<Student> getStudenci();
 
-    Mono<Student> saveStudent(Student student);
-
-    Mono<Student>  updateStudent(Student student, Integer studentId);
 
     Mono<Student> getStudent(Integer studentId);
 
@@ -19,5 +16,11 @@ public interface StudentService {
 
     Mono<Student> getStudentByLogin(String email, String pass);
 
+    Mono<Void> postStudent(Student student);
 
+    Mono<Student> getStudentByNrIndeksu(String nrIndeksu);
+
+    Flux<Student> getStudentsByProject(Integer projectId);
+
+    Mono<Student> getStudentInProject(Integer projectId,Integer studentId);
 }

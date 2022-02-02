@@ -21,11 +21,11 @@ public class StudentRouter {
         		.route(GET("/students"), studentHandler::getStudenci)
 				.andRoute(GET("/students/{id}"), studentHandler::getStudent)
 				.andRoute(GET("/getStudentByLogin"), studentHandler::getStudentByLogin)
-				.andRoute(POST("/students").and(contentType(APPLICATION_JSON)), 
-												studentHandler::createStudent)
-				.andRoute(PUT("/students").and(contentType(APPLICATION_JSON)), 
-												studentHandler::updateStudent)
-				.andRoute(DELETE("/students/{id}"), studentHandler::deleteStudent);
+                .andRoute(GET("/getStudentByNrIndeksu"), studentHandler::getStudentByNrIndeksu)
+                .andRoute(GET("/getStudentsByProject"), studentHandler::getStudentsByProject)
+				.andRoute(DELETE("/students/{id}"), studentHandler::deleteStudent)
+                .andRoute(GET("/getStudentInProject"), studentHandler::getStudentInProject)
+                .andRoute(POST("/postStudent"), studentHandler::postStudent);
 
     }
 }

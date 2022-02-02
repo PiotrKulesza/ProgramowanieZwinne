@@ -15,6 +15,8 @@ public class LoginRouter {
     @Bean
     public RouterFunction<ServerResponse> loginRoute(LoginHandler loginHandler) {
         return RouterFunctions
-                .route().GET("/getUserById/{login_id}", loginHandler::getUserById).build();
+                .route(PUT("/loginUpdate"),loginHandler::updatePassword)
+                .andRoute(GET("/getLoginByEmail"),loginHandler::getLoginByEmail)
+                .andRoute(POST("/postLogin"),loginHandler::postLogin);
     }
 }

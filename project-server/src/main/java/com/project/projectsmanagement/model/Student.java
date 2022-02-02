@@ -31,8 +31,6 @@ public class Student {
 	@Column("nrindeksu")
 	private String nrIndeksu;
 
-	private boolean stacjonarny;
-
 	private Login login;
 
 }

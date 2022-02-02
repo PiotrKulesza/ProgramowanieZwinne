@@ -20,14 +20,10 @@ public class Task {
 
 	private Project project;
 
-	private Student student;
+	private String nazwa;
 
-	private String title;
+	private String opis;
 
-	private String odescriptionpis;
-
-	private LocalDateTime dataczasDodania;
-
-	private Integer kolejnosc;
+	private String kanban;
 
 }

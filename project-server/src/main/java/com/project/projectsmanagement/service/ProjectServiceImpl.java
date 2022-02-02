@@ -6,6 +6,9 @@ import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.reactive.TransactionalOperator;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.time.LocalDate;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -22,10 +25,32 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public Flux<Project> getProjectsByLecturer(Integer lecturerId) {
-        projectRepository.findByLecturer(lecturerId).flatMap(project -> {
-            System.out.println(project.getNazwa());
-            return null;
-        });
         return projectRepository.findByLecturer(lecturerId);
+    }
+
+    @Override
+    public Mono<Void> postProject(String nazwa, String opis, Integer lecturerId) {
+        return databaseClient
+                .sql("INSERT INTO project(lecturer_id, nazwa, opis, dataczasutworzenia) VALUES " +
+                        "(:lecturerId, :nazwa, :opis, :dataczasutworzenia)")
+                .bind("nazwa", nazwa)
+                .bind("opis", opis)
+                .bind("lecturerId", lecturerId)
+                .bind("dataczasutworzenia", LocalDate.now())
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional);
+    }
+
+    @Override
+    public Mono<Void> addStudentToProject(Integer projectId, Integer studentId) {
+        System.out.println("TEST");
+        return databaseClient
+                .sql("INSERT INTO project_student(student_id, project_id) VALUES (:studentId , :projectId)")
+                .bind("studentId", studentId)
+                .bind("projectId", projectId)
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional);
     }
 }

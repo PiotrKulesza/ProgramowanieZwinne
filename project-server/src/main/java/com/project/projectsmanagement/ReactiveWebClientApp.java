@@ -1,10 +1,8 @@
 package com.project.projectsmanagement;
 
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.project.projectsmanagement.model.Student;
+import com.project.projectsmanagement.model.Lecturer;
 
 import reactor.core.publisher.Mono;
 
@@ -17,28 +15,22 @@ public class ReactiveWebClientApp {
 	
 	public static void main(String[] args) throws InterruptedException {
 		ReactiveWebClientApp app = new ReactiveWebClientApp();
-		
-		Student student = new Student(null, "Jan", "Nazwisko", "100000", true, null);
-//		
-//		 app.webClient
-//			.post()
-//			.uri("/students")
-//			.body(Mono.just(student), Student.class)
-//			.retrieve()
-//			.bodyToMono(Student.class)
-//			.subscribe();
-//		
+
 		 app.webClient
-			.get()
-			.uri("/students")
+			.put()
+			.uri("/updateLecturer/1?imie=Tomasz")
+			.body(Mono.just(new Lecturer()), Lecturer.class)
 			.retrieve()
-			.bodyToFlux(Student.class)
-			.doOnNext(s -> {
-				System.out.printf("Id: %d, Imiê: %s, Nazwisko: %s%n", s.getStudentId(), s.getImie(), s.getNazwisko());
-			})
+			.bodyToMono(Lecturer.class)
+			.thenMany(app.webClient
+				.get()
+				.uri("/lecturers")
+				.retrieve()
+				.bodyToFlux(Lecturer.class)
+				.doOnNext(l -> {
+					System.out.printf("Id: %d, Imiê: %s, Nazwisko: %s%n", l.getLecturerId(),l.getImie(), l.getNazwisko());
+				}))
 			.blockLast();
-		
-		TimeUnit.SECONDS.sleep(5);
 	}
 
 }

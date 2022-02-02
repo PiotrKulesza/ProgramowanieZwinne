@@ -18,7 +18,7 @@ class ProfilLecturer extends React.Component{
         this.setState({userId:localStorage.getItem('loggedUser')})
         axios({
             method:'get',
-            url:'http://localhost:8080/lecturer/'+this.state.userId,
+            url:'http://localhost:8080/lecturer/'+localStorage.getItem('loggedUser'),
         }).then(response => response.data)
             .then((data) =>{
                 this.setState({users: data});
