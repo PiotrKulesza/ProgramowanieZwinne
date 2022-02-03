@@ -97,6 +97,23 @@ public class StudentHandler {
 
 	}
 
+	public Mono<ServerResponse> updateStudent(ServerRequest request) {
+
+		if(request.queryParam("imie").isPresent())
+			return studentService
+					.updateImie(Integer.valueOf(request.pathVariable("id")), request.queryParam("imie").get())
+					.then(ServerResponse.noContent().build());
+		else if(request.queryParam("nazwisko").isPresent())
+			return studentService
+					.updateNazwisko(Integer.valueOf(request.pathVariable("id")), request.queryParam("nazwisko").get())
+					.then(ServerResponse.noContent().build());
+		else if(request.queryParam("nrIndeksu").isPresent())
+			return studentService
+					.updateNrIndeksu(Integer.valueOf(request.pathVariable("id")), request.queryParam("nrIndeksu").get())
+					.then(ServerResponse.noContent().build());
+		return ServerResponse.badRequest().build();
+	}
+
 
 
 }

@@ -18,7 +18,7 @@ public class LoginHandler {
     }
 
     public Mono<ServerResponse> updatePassword(ServerRequest request) {
-        System.out.println("Test");
+
         if(request.queryParam("loginId").isPresent() && request.queryParam("oldPass").isPresent()
                 && request.queryParam("newPass").isPresent())
             return loginService.updatePassword(request.queryParam("oldPass").get(),

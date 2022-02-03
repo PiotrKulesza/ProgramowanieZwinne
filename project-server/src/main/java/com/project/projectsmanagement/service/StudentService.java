@@ -23,4 +23,8 @@ public interface StudentService {
     Flux<Student> getStudentsByProject(Integer projectId);
 
     Mono<Student> getStudentInProject(Integer projectId,Integer studentId);
+
+    Mono<Void> updateImie(Integer studentId, String imie);
+    Mono<Void> updateNazwisko(Integer studentId, String nazwisko);
+    Mono<Void> updateNrIndeksu(Integer studentId, String nrIndeksu);
 }

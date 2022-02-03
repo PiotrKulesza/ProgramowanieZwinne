@@ -19,12 +19,13 @@ public class StudentRouter {
     public RouterFunction<ServerResponse> studentRoute(StudentHandler studentHandler) {
         return RouterFunctions 
         		.route(GET("/students"), studentHandler::getStudenci)
-				.andRoute(GET("/students/{id}"), studentHandler::getStudent)
+				.andRoute(GET("/student/{id}"), studentHandler::getStudent)
 				.andRoute(GET("/getStudentByLogin"), studentHandler::getStudentByLogin)
                 .andRoute(GET("/getStudentByNrIndeksu"), studentHandler::getStudentByNrIndeksu)
                 .andRoute(GET("/getStudentsByProject"), studentHandler::getStudentsByProject)
 				.andRoute(DELETE("/students/{id}"), studentHandler::deleteStudent)
                 .andRoute(GET("/getStudentInProject"), studentHandler::getStudentInProject)
+                .andRoute(PUT("/updateStudent/{id}"), studentHandler::updateStudent)
                 .andRoute(POST("/postStudent"), studentHandler::postStudent);
 
     }

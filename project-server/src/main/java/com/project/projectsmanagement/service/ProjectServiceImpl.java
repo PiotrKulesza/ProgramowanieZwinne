@@ -29,6 +29,11 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
+    public Flux<Project> getProjectsByStudent(Integer studentId) {
+        return projectRepository.findByStudent(studentId);
+    }
+
+    @Override
     public Mono<Void> postProject(String nazwa, String opis, Integer lecturerId) {
         return databaseClient
                 .sql("INSERT INTO project(lecturer_id, nazwa, opis, dataczasutworzenia) VALUES " +
@@ -44,7 +49,7 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public Mono<Void> addStudentToProject(Integer projectId, Integer studentId) {
-        System.out.println("TEST");
+
         return databaseClient
                 .sql("INSERT INTO project_student(student_id, project_id) VALUES (:studentId , :projectId)")
                 .bind("studentId", studentId)
@@ -53,4 +58,46 @@ public class ProjectServiceImpl implements ProjectService{
                 .rowsUpdated()
                 .then().as(transactionalOperator::transactional);
     }
+
+    @Override
+    public Mono<Project> getProjectsByProjectId(Integer projectId) {
+        return projectRepository.findByProjectId(projectId);
+    }
+
+    @Override
+    public Mono<Void> putNazwa(Integer projectId, String nazwa) {
+        return databaseClient
+                .sql("UPDATE project SET nazwa = :nazwa, dataczasedycji = :dataczasedycji WHERE project_id = :projectId")
+                .bind("dataczasedycji", LocalDate.now())
+                .bind("nazwa", nazwa)
+                .bind("projectId", projectId)
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional);
+    }
+
+    @Override
+    public Mono<Void> putOpis(Integer projectId, String opis) {
+        return databaseClient
+                .sql("UPDATE project SET opis = :opis, dataczasedycji = :dataczasedycji WHERE project_id = :projectId")
+                .bind("dataczasedycji", LocalDate.now())
+                .bind("opis", opis)
+                .bind("projectId", projectId)
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional);
+    }
+
+    @Override
+    public Mono<Void> putZakoncz(Integer projectId) {
+        return databaseClient
+                .sql("UPDATE project SET dataoddania = :dataoddania WHERE project_id = :projectId")
+                .bind("dataoddania", LocalDate.now())
+                .bind("projectId", projectId)
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional);
+    }
+
+
 }

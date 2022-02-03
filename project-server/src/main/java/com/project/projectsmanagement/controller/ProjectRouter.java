@@ -16,8 +16,12 @@ public class ProjectRouter {
     public RouterFunction<ServerResponse> projectRoute(ProjectHandler projectHandler) {
         return RouterFunctions
                 .route(GET("/lecturerProjects/{id}"), projectHandler::getProjectsByLecturer)
+                .andRoute(GET("/studentProjects/{id}"), projectHandler::getProjectsByStudent)
+                .andRoute(GET("/getProjectsByProjectId"), projectHandler::getProjectsByProjectId)
                 .andRoute(POST("/addProject"),projectHandler::postProject)
-                .andRoute(POST("/addStudentToProject"),projectHandler::addStudentToProject);
+                .andRoute(POST("/addStudentToProject"),projectHandler::addStudentToProject)
+                .andRoute(PUT("/endProject"),projectHandler::endProject)
+                .andRoute(PUT("/updateProject"),projectHandler::updateProject);
 
 
     }

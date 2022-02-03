@@ -16,6 +16,10 @@ public class TaskRouter {
     @Bean
     public RouterFunction<ServerResponse> taskRoute(TaskHandler taskHandler) {
         return RouterFunctions
-                .route(GET("/getTaskByProject"),taskHandler::getTaskByProject);
+                .route(GET("/getTaskByProject"),taskHandler::getTaskByProject)
+                .andRoute(GET("/getTaskById"),taskHandler::getTaskById)
+                .andRoute(POST("/addTask"),taskHandler::addTask)
+                .andRoute(PUT("/updateTask"),taskHandler::updateTask)
+                ;
     }
 }

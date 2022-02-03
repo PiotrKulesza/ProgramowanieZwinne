@@ -25,8 +25,8 @@ class NavigationBarStudent extends React.Component{
                     Student
                 </Link>
                 <Nav className="mr-auto">
-                    <Link to="/student/profil" className={"nav-link"}>Profil Uzytkonwika</Link>
-                    <Link to="/student/projekty" className={"nav-link"}>Moje projekty</Link>
+                    <Link to="/student/profile" className={"nav-link"}>Profil Użytkownika</Link>
+                    <Link to="/student/projects" className={"nav-link"}>Moje projekty</Link>
                     <Link to="/logout" className={"nav-link"} style={{ marginRight: "auto" }}>Wyloguj</Link>
                 </Nav>
             </Navbar>

@@ -7,7 +7,7 @@ class EditName extends React.Component{
         super(props);
         this.state = {
             userId: '',
-            imie: '',
+            nrIndeksu: '',
             userType:''
         };
         this.valueChange = this.valueChange.bind(this)
@@ -22,17 +22,12 @@ class EditName extends React.Component{
 
     submitChange (event) {
 
-        let buildUrl = ''
-        if(this.state.userType==="student")
-            buildUrl='updateStudent'
-        else
-            buildUrl='updateLecturer'
 
         axios({
             method:'put',
-            url:'http://localhost:8080/'+buildUrl+'/'+this.state.userId+'?imie='+this.state.imie,
+            url:'http://localhost:8080/updateStudent/'+this.state.userId+'?nrIndeksu='+this.state.nrIndeksu,
         }).then(()=>{
-            window.location = "/"+this.state.userType+"/profile";
+                window.location = "/student/profile";
             }
         )
         ;
@@ -44,13 +39,7 @@ class EditName extends React.Component{
     componentDidMount() {
 
         this.setState({userId:localStorage.getItem('loggedUser')})
-        if ('STUDENT' === localStorage.getItem('typeOfUser')) {
-            this.setState({userType:"student"})
 
-        }else{
-            this.setState({userType:"lecturer"})
-
-        }
     }
 
     render() {
@@ -65,15 +54,15 @@ class EditName extends React.Component{
                     <Card.Body>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Nowe imię użytkonwika</Form.Label>
+                                <Form.Label>Nowy numer indeksu użytkonwika</Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
                                     autoComplete={"off"}
-                                    name={"imie"}
-                                    value={this.state.imie}
+                                    name={"nrIndeksu"}
+                                    value={this.state.nrIndeksu}
                                     onChange={this.valueChange}
-                                    placeholder="imie"
+                                    placeholder="nrIndeksu"
                                     className={"bg-dark text-white"}
                                 />
                             </Form.Group>

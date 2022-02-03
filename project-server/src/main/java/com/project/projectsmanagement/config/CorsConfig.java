@@ -26,6 +26,10 @@ public class CorsConfig implements WebFluxConfigurer {
                 .allowedOrigins("*")
                 .allowedMethods("GET")
                 .maxAge(3600);
+        corsRegistry.addMapping("/student/{id}")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
         corsRegistry.addMapping("/students")
                 .allowedOrigins("*")
                 .allowedMethods("GET")
@@ -50,11 +54,39 @@ public class CorsConfig implements WebFluxConfigurer {
                 .allowedOrigins("*")
                 .allowedMethods("GET")
                 .maxAge(3600);
+        corsRegistry.addMapping("/getTaskById")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/studentProjects/{id}")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
+        corsRegistry.addMapping("/getProjectsByProjectId")
+                .allowedOrigins("*")
+                .allowedMethods("GET")
+                .maxAge(3600);
         corsRegistry.addMapping("/updateLecturer/{id}")
                 .allowedOrigins("*")
                 .allowedMethods("PUT")
                 .maxAge(3600);
+        corsRegistry.addMapping("/updateStudent/{id}")
+                .allowedOrigins("*")
+                .allowedMethods("PUT")
+                .maxAge(3600);
         corsRegistry.addMapping("/loginUpdate")
+                .allowedOrigins("*")
+                .allowedMethods("PUT")
+                .maxAge(3600);
+        corsRegistry.addMapping("/updateProject")
+                .allowedOrigins("*")
+                .allowedMethods("PUT")
+                .maxAge(3600);
+        corsRegistry.addMapping("/endProject")
+                .allowedOrigins("*")
+                .allowedMethods("PUT")
+                .maxAge(3600);
+        corsRegistry.addMapping("/updateTask")
                 .allowedOrigins("*")
                 .allowedMethods("PUT")
                 .maxAge(3600);
@@ -75,6 +107,10 @@ public class CorsConfig implements WebFluxConfigurer {
                 .allowedMethods("POST")
                 .maxAge(3600);
         corsRegistry.addMapping("/addStudentToProject")
+                .allowedOrigins("*")
+                .allowedMethods("POST")
+                .maxAge(3600);
+        corsRegistry.addMapping("/addTask")
                 .allowedOrigins("*")
                 .allowedMethods("POST")
                 .maxAge(3600);

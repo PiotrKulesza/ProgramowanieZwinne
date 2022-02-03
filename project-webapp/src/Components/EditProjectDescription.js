@@ -2,12 +2,14 @@ import React from "react";
 import axios from 'axios';
 import {Button, Card, Col, Form} from "react-bootstrap";
 
-class EditName extends React.Component{
+class EditProjectDescription extends React.Component{
     constructor(props) {
         super(props);
+        const queryParams = new URLSearchParams(window.location.search);
         this.state = {
+            projectId:queryParams.get('projectId'),
             userId: '',
-            imie: '',
+            opis: '',
             userType:''
         };
         this.valueChange = this.valueChange.bind(this)
@@ -22,17 +24,11 @@ class EditName extends React.Component{
 
     submitChange (event) {
 
-        let buildUrl = ''
-        if(this.state.userType==="student")
-            buildUrl='updateStudent'
-        else
-            buildUrl='updateLecturer'
-
         axios({
             method:'put',
-            url:'http://localhost:8080/'+buildUrl+'/'+this.state.userId+'?imie='+this.state.imie,
+            url:'http://localhost:8080/updateProject?opis='+this.state.opis+'&projectId='+this.state.projectId,
         }).then(()=>{
-            window.location = "/"+this.state.userType+"/profile";
+                window.location = "/"+this.state.userType+"/projects/editProject?projectId="+this.state.projectId;
             }
         )
         ;
@@ -57,7 +53,7 @@ class EditName extends React.Component{
         return (
             <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header>
-                    <Button size="sm" href={"/"+this.state.userType} >
+                    <Button size="sm" href={"/"+this.state.userType+"/projects/editProject?projectId="+this.state.projectId} >
                         Powrót
                     </Button>
                 </Card.Header>
@@ -65,15 +61,15 @@ class EditName extends React.Component{
                     <Card.Body>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Nowe imię użytkonwika</Form.Label>
+                                <Form.Label>Nowy opis projektu</Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
                                     autoComplete={"off"}
-                                    name={"imie"}
-                                    value={this.state.imie}
+                                    name={"opis"}
+                                    value={this.state.opis}
                                     onChange={this.valueChange}
-                                    placeholder="imie"
+                                    placeholder="opis"
                                     className={"bg-dark text-white"}
                                 />
                             </Form.Group>
@@ -92,4 +88,4 @@ class EditName extends React.Component{
     }
 }
 
-export default EditName;
+export default EditProjectDescription;

@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService{
 
     @Override
     public Mono<Void> updatePassword(String oldPass, String newPass, Integer loginId) {
-        System.out.println("Test");
+
     	return databaseClient
                 .sql("UPDATE login SET password = :newPass WHERE password = :oldPass AND login_id = :loginId")
                 .bind("loginId", loginId)

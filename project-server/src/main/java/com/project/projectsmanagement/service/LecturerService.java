@@ -15,7 +15,7 @@ public interface LecturerService {
     Mono<Lecturer> getLecturerByLogin(String email, String pass);
 
     Mono<Void> updateImie(Integer lecturerId, String imie);
-    Mono<Void> updateNazwisko(Integer lecturerId, String imie);
+    Mono<Void> updateNazwisko(Integer lecturerId, String nazwisko);
 
     Mono<Void> postLecturer(Lecturer lecturer);
 

@@ -25,15 +25,9 @@ class EditPass extends React.Component{
 
     submitChange (event) {
 
-        let buildUrl = ''
-        if(this.state.userType==="student")
-            buildUrl='updateStudent'
-        else
-            buildUrl='updateLecturer'
-
         axios({
             method:'get',
-            url:'http://localhost:8080/lecturer/'+this.state.userId,
+            url:'http://localhost:8080/'+this.state.userType+'/'+this.state.userId,
         }).then(response => response.data)
             .then((data)=>{
                 axios({
@@ -68,6 +62,11 @@ class EditPass extends React.Component{
     render() {
         return (
             <Card className={"border border-dark bg-dark text-white"}>
+                <Card.Header>
+                    <Button size="sm" href={"/"+this.state.userType} >
+                        Powrót
+                    </Button>
+                </Card.Header>
                 <Form  onSubmit={this.submitChange}>
                     <Card.Body>
                         <Form.Row>

@@ -2,12 +2,11 @@ import React from "react";
 import axios from 'axios';
 import {Table, Card, Button} from "react-bootstrap";
 
-class ProjectListLecturer extends React.Component{
+class ProjectListStudent extends React.Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            lecturerId: '',
             projects: []
         };
 
@@ -15,9 +14,8 @@ class ProjectListLecturer extends React.Component{
     }
 
     componentDidMount() {
-        this.setState({lecturerId:localStorage.getItem('loggedUser')})
         console.log(localStorage.getItem('loggedUser'))
-        axios.get("http://localhost:8080/lecturerProjects/"+localStorage.getItem('loggedUser'))
+        axios.get("http://localhost:8080/studentProjects/"+localStorage.getItem('loggedUser'))
             .then(response => response.data)
             .then((data) =>{
                 this.setState({projects: data});
@@ -29,7 +27,7 @@ class ProjectListLecturer extends React.Component{
         return (
             <Card className={"border border-dark bg-dark text-black"}>
                 <Card.Header>
-                    <Button variant="primary" href={"/lecturer/projects/addProject"}>Dodaj</Button>{' '}
+
                 </Card.Header>
                 <Card.Body>
                     <Table striped bordered hover variant="dark">
@@ -59,7 +57,7 @@ class ProjectListLecturer extends React.Component{
                                     +project.dataczasUtworzenia[2]}</td>
                                     {project.dataczasEdycji === null ?
                                         <td>Nie edytowane</td>
-                                    :  <td>{project.dataczasEdycji[0]+"-"+project.dataczasEdycji[1]+"-"
+                                        :  <td>{project.dataczasEdycji[0]+"-"+project.dataczasEdycji[1]+"-"
                                         +project.dataczasEdycji[2]}</td>
                                     }
                                     {project.dataOddania === null ?
@@ -67,16 +65,14 @@ class ProjectListLecturer extends React.Component{
                                         :  <td>{project.dataOddania[0]+"-"+project.dataOddania[1]+"-"+project.dataOddania[2]}</td>
                                     }
                                     <td>
-                                        <Button variant="primary" size="sm" href={"/lecturer/projects/stude" +
-                                        "ntList?projectId="+project.projectId}>Studenci</Button>{' '}
-                                        <Button variant="primary" size="sm" href={"/lecturer/projects/task" +
-                                        "List?projectId="+project.projectId}>Zadania</Button>{' '}
-                                        <Button variant="primary" size="sm" href={"/lecturer/projects/editProject" +
+                                        <Button variant="primary" size="sm" href={"/student/projects/task" +
+                                        "List?projectId="+project.projectId}>Zadania</Button> {" "}
+                                        <Button variant="primary" size="sm" href={"/student/projects/editProject" +
                                         "?projectId="+project.projectId}>Edytuj</Button>
-                                   </td>
+                                    </td>
                                 </tr>
 
-                                ))
+                            ))
                         }
                         </tbody>
                     </Table>
@@ -86,4 +82,4 @@ class ProjectListLecturer extends React.Component{
     }
 }
 
-export default ProjectListLecturer;
+export default ProjectListStudent;

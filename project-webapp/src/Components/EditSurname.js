@@ -56,6 +56,11 @@ class EditSurname extends React.Component{
     render() {
         return (
             <Card className={"border border-dark bg-dark text-white"}>
+                <Card.Header>
+                    <Button size="sm" href={"/"+this.state.userType} >
+                        Powrót
+                    </Button>
+                </Card.Header>
                 <Form  onSubmit={this.submitChange}>
                     <Card.Body>
                         <Form.Row>

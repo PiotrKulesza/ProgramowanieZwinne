@@ -35,7 +35,7 @@ public interface StudentRepository extends ReactiveCrudRepository<Student, Integ
 
 	@Query("SELECT student.*, student.login_id AS login_id, login.email AS email " +
 			"FROM student JOIN login ON login.login_id=student.login_id JOIN project_student ON " +
-			"project_student.student_id=student.student_id WHERE project_student.project_id = :projectId")
+			"project_student.student_id=student.student_id WHERE project_student.project_id = :projectId ORDER BY student.student_id")
 	Flux<Student> findByProject(Integer projectId);
 
 	@Query("SELECT student.*, student.login_id AS login_id, login.email AS email " +
@@ -43,4 +43,6 @@ public interface StudentRepository extends ReactiveCrudRepository<Student, Integ
 			"project_student.student_id=student.student_id WHERE project_student.project_id = :projectId " +
 			"AND project_student.student_id = :studentId")
 	Mono<Student>findInProject(Integer projectId,Integer studentId);
+
+
 }

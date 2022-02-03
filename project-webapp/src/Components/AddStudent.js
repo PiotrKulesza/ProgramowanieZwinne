@@ -56,7 +56,11 @@ class AddProject extends React.Component{
     render() {
         return (
             <Card className={"border border-dark bg-dark text-white"}>
+                <Card.Header>
+                    <Button variant="primary" href={"/lecturer/studentList"}>Powrót</Button>{' '}
+                </Card.Header>
                 <Form  onSubmit={this.submitChange}>
+
                     <Card.Body>
                         <Form.Row>
                             <Form.Group as={Col}>

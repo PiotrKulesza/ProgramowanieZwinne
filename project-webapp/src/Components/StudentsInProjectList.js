@@ -32,6 +32,7 @@ class StudentsInProjectList extends React.Component{
             <Card className={"border border-dark bg-dark text-black"}>
                 <Card.Header>
                     <Button variant="primary" href={"/lecturer/projects/studentList/addStudentToProject?projectId="+this.state.projectId}>Dodaj</Button>{' '}
+                    <Button variant="primary" href={"/lecturer/projects"}>Powrót</Button>{' '}
                 </Card.Header>
                 <Card.Body>
                     <Table striped bordered hover variant="dark">

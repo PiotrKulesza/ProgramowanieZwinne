@@ -2,14 +2,14 @@ import React from "react";
 import {Jumbotron} from "react-bootstrap"
 
 
-class Welcome extends React.Component{
+class WelcomeStudent extends React.Component{
 
     render() {
         return (
             <Jumbotron className = "bg-dark text-light">
-                <h1>Witaj w serwisie do zarządania projektami!</h1>
+                <h1>Witaj studencie!</h1>
                 <p>
-                    Zaloguj się jako wykładowca lub student..
+                    ...
                 </p>
 
             </Jumbotron>
@@ -17,4 +17,4 @@ class Welcome extends React.Component{
     }
 }
 
-export default Welcome;
+export default WelcomeStudent;

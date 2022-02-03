@@ -19,13 +19,8 @@ public class ProjectReadConverter implements Converter<Row, Project> {
     public Project convert(Row source) {
 
 
-        Lecturer lecturer = new Lecturer();
-        lecturer.setLecturerId(source.get("lecturer_id",Integer.class));
-        lecturer.setImie(source.get("imie",String.class));
-        lecturer.setNazwisko(source.get("nazwisko",String.class));
 
         Project project = new Project();
-        project.setLecturer(lecturer);
         project.setDataczasEdycji(source.get("dataczasedycji", LocalDateTime.class));
         project.setDataczasUtworzenia(source.get("dataczasutworzenia", LocalDateTime.class));
         project.setDataOddania(source.get("dataoddania", LocalDate.class));

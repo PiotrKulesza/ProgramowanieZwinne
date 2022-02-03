@@ -2,12 +2,15 @@ import React from "react";
 import axios from 'axios';
 import {Button, Card, Col, Form} from "react-bootstrap";
 
-class EditName extends React.Component{
+class EditTaskDescription extends React.Component{
     constructor(props) {
         super(props);
+        const queryParams = new URLSearchParams(window.location.search);
         this.state = {
+            projectId:queryParams.get('projectId'),
+            taskId:queryParams.get('taskId'),
             userId: '',
-            imie: '',
+            opis: '',
             userType:''
         };
         this.valueChange = this.valueChange.bind(this)
@@ -22,17 +25,12 @@ class EditName extends React.Component{
 
     submitChange (event) {
 
-        let buildUrl = ''
-        if(this.state.userType==="student")
-            buildUrl='updateStudent'
-        else
-            buildUrl='updateLecturer'
-
         axios({
             method:'put',
-            url:'http://localhost:8080/'+buildUrl+'/'+this.state.userId+'?imie='+this.state.imie,
+            url:'http://localhost:8080/updateTask?opis='+this.state.opis+'&taskId='+this.state.taskId,
         }).then(()=>{
-            window.location = "/"+this.state.userType+"/profile";
+                window.location = "/"+this.state.userType+"/projects/taskList/editTask?projectId="+this.state.projectId
+                    +"&taskId="+this.state.taskId;
             }
         )
         ;
@@ -57,23 +55,25 @@ class EditName extends React.Component{
         return (
             <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header>
-                    <Button size="sm" href={"/"+this.state.userType} >
+                    <Button size="sm" href={"/"+this.state.userType+"/projects/taskList/editTask?projectId="+this.state.projectId
+                    +"&taskId="+this.state.taskId} >
                         Powrót
                     </Button>
                 </Card.Header>
                 <Form  onSubmit={this.submitChange}>
+
                     <Card.Body>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Nowe imię użytkonwika</Form.Label>
+                                <Form.Label>Nowy opis zadania</Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
                                     autoComplete={"off"}
-                                    name={"imie"}
-                                    value={this.state.imie}
+                                    name={"opis"}
+                                    value={this.state.opis}
                                     onChange={this.valueChange}
-                                    placeholder="imie"
+                                    placeholder="opis"
                                     className={"bg-dark text-white"}
                                 />
                             </Form.Group>
@@ -92,4 +92,4 @@ class EditName extends React.Component{
     }
 }
 
-export default EditName;
+export default EditTaskDescription;

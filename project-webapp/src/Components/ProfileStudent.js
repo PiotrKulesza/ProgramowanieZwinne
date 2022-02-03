@@ -18,7 +18,7 @@ class ProfilLecturer extends React.Component{
         this.setState({userId:localStorage.getItem('loggedUser')})
         axios({
             method:'get',
-            url:'http://localhost:8080/lecturer/'+localStorage.getItem('loggedUser'),
+            url:'http://localhost:8080/student/'+localStorage.getItem('loggedUser'),
         }).then(response => response.data)
             .then((data) =>{
                 this.setState({users: data});
@@ -50,17 +50,22 @@ class ProfilLecturer extends React.Component{
                         <tr>
                             <th>Imię</th>
                             <td>{this.state.users.imie} </td>
-                            <td><a href={"/lecturer/editName"}><FiEdit   /></a></td>
+                            <td><a href={"/student/editName"}><FiEdit   /></a></td>
                         </tr>
                         <tr>
                             <th>Nazwisko</th>
                             <td>{this.state.users.nazwisko} </td>
-                            <td><a href={"/lecturer/editSurname"}><FiEdit   /></a></td>
+                            <td><a href={"/student/editSurname"}><FiEdit   /></a></td>
+                        </tr>
+                        <tr>
+                            <th>NrIndeksu</th>
+                            <td>{this.state.users.nrIndeksu} </td>
+                            <td><a href={"/student/editNrIndex"}><FiEdit   /></a></td>
                         </tr>
                         <tr>
                             <th>Hasło</th>
                             <td>****</td>
-                            <td> <a href={"/lecturer/editPass"}><FiEdit   /></a></td>
+                            <td> <a href={"/student/editPass"}><FiEdit   /></a></td>
                         </tr>
 
                         </tbody>

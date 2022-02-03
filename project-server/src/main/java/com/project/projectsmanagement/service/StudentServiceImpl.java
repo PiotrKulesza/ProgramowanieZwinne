@@ -81,6 +81,39 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	public Mono<Void> updateImie(Integer studentId, String imie) {
+		return databaseClient
+				.sql("UPDATE student SET imie = :imie WHERE student_id = :studentId")
+				.bind("studentId", studentId)
+				.bind("imie", imie)
+				.fetch()
+				.rowsUpdated()
+				.then().as(transactionalOperator::transactional);
+	}
+
+	@Override
+	public Mono<Void> updateNazwisko(Integer studentId, String nazwisko) {
+		return databaseClient
+				.sql("UPDATE student SET nazwisko = :nazwisko WHERE student_id = :studentId")
+				.bind("studentId", studentId)
+				.bind("nazwisko", nazwisko)
+				.fetch()
+				.rowsUpdated()
+				.then().as(transactionalOperator::transactional);
+	}
+
+	@Override
+	public Mono<Void> updateNrIndeksu(Integer studentId, String nrIndeksu) {
+		return databaseClient
+				.sql("UPDATE student SET nrindeksu = :nrIndeksu WHERE student_id = :studentId")
+				.bind("studentId", studentId)
+				.bind("nrIndeksu", nrIndeksu)
+				.fetch()
+				.rowsUpdated()
+				.then().as(transactionalOperator::transactional);
+	}
+
+	@Override
 	public Flux<Student> getStudenci() {
 		return studentRepository.findAll();
 	}
