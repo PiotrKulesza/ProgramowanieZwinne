@@ -22,4 +22,8 @@ public interface ProjectService {
 
     Mono<Void> putZakoncz(Integer projectId);
 
+    Mono<Void> deleteProject(Integer projectId);
+
+    Mono<Void> deleteStudentFromProject(Integer projectId, Integer studentId);
+
 }

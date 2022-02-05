@@ -78,4 +78,26 @@ public class TaskServiceImpl implements TaskService {
                 .rowsUpdated()
                 .then().as(transactionalOperator::transactional);
     }
+
+    @Override
+    public Mono<Void> deleteTask(Integer taskId) {
+        return databaseClient
+                .sql("DELETE FROM task WHERE task.task_id=:taskId")
+                .bind("taskId", taskId)
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional);
+    }
+
+    @Override
+    public Mono<Void> deleteTaskByProject(Integer projectId) {
+        return databaseClient
+                .sql("DELETE FROM task WHERE task.project_id=:projectId")
+                .bind("projectId", projectId)
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional);
+    }
+
+
 }

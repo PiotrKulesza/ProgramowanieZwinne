@@ -46,13 +46,14 @@ class StudentList extends React.Component{
                             <th>Nazwisko</th>
                             <th>Indeks</th>
                             <th>Email</th>
+                            <th>Działania</th>
 
                         </tr>
                         </thead>
                         <tbody>
                         {this.state.students.length === 0 ?
                             <tr>
-                                <td colSpan="5">Nie znaleziono studentów.</td>
+                                <td colSpan="6">Nie znaleziono studentów.</td>
                             </tr> :
                             this.state.students.map((student) => (
                                 <tr>
@@ -61,6 +62,9 @@ class StudentList extends React.Component{
                                     <td>{student.nazwisko}</td>
                                     <td>{student.nrIndeksu}</td>
                                     <td>{student.login.email}</td>
+                                    <td><Button size="sm" variant="danger" href={"/lecturer/studentList" +
+                                    "/deleteStudent?studentId="+student.studentId+
+                                    "&loginId="+student.login.loginId}>Usuń</Button>{' '}</td>
                                 </tr>
 
                             ))

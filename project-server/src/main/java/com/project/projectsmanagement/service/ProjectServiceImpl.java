@@ -99,5 +99,40 @@ public class ProjectServiceImpl implements ProjectService{
                 .then().as(transactionalOperator::transactional);
     }
 
+    @Override
+    public Mono<Void> deleteProject(Integer projectId) {
+        return databaseClient
+                .sql("DELETE FROM task WHERE task.project_id=:projectId")
+                .bind("projectId", projectId)
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional)
+                .then(databaseClient
+                        .sql("DELETE FROM project_student WHERE project_student.project_id=:projectId")
+                        .bind("projectId", projectId)
+                        .fetch()
+                        .rowsUpdated()
+                        .then().as(transactionalOperator::transactional)
+                ).then(databaseClient
+                        .sql("DELETE FROM project WHERE project.project_id=:projectId")
+                        .bind("projectId", projectId)
+                        .fetch()
+                        .rowsUpdated()
+                        .then().as(transactionalOperator::transactional)
+                );
+    }
+
+    @Override
+    public Mono<Void> deleteStudentFromProject(Integer projectId, Integer studentId) {
+        return databaseClient
+                .sql("DELETE FROM project_student WHERE project_student.project_id=:projectId " +
+                        "AND project_student.STUDENT_id=:studentId")
+                .bind("studentId", studentId)
+                .bind("projectId", projectId)
+                .fetch()
+                .rowsUpdated()
+                .then().as(transactionalOperator::transactional);
+    }
+
 
 }

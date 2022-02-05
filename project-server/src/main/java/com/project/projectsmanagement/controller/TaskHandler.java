@@ -82,6 +82,22 @@ public class TaskHandler {
 
     }
 
+    public Mono<ServerResponse> deleteTask(ServerRequest request){
+        if(request.queryParam("taskId").isPresent())
+            return taskService.deleteTask(Integer.valueOf(request.queryParam("taskId").get()))
+                    .then(ServerResponse.noContent().build());
+
+        return ServerResponse.badRequest().build();
+    }
+
+    public Mono<ServerResponse> deleteTaskByProject(ServerRequest request){
+        if(request.queryParam("projectId").isPresent())
+            return taskService.deleteTaskByProject(Integer.valueOf(request.queryParam("projectId").get()))
+                    .then(ServerResponse.noContent().build());
+
+        return ServerResponse.badRequest().build();
+    }
+
 
 
 }

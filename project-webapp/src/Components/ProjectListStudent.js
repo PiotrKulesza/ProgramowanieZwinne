@@ -67,8 +67,6 @@ class ProjectListStudent extends React.Component{
                                     <td>
                                         <Button variant="primary" size="sm" href={"/student/projects/task" +
                                         "List?projectId="+project.projectId}>Zadania</Button> {" "}
-                                        <Button variant="primary" size="sm" href={"/student/projects/editProject" +
-                                        "?projectId="+project.projectId}>Edytuj</Button>
                                     </td>
                                 </tr>
 

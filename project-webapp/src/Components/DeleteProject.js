@@ -2,12 +2,13 @@ import React from "react";
 import axios from 'axios';
 import {Card} from "react-bootstrap";
 
-class EndProject extends React.Component{
+class DeleteProject extends React.Component{
     constructor(props) {
         super(props)
         const queryParams = new URLSearchParams(window.location.search);
         this.state = {
             projectId:queryParams.get('projectId'),
+            taskId:queryParams.get('taskId'),
         };
     }
 
@@ -15,8 +16,8 @@ class EndProject extends React.Component{
     componentDidMount() {
 
         axios({
-            method:'put',
-            url:'http://localhost:8080/endProject?projectId='+this.state.projectId,
+            method:'delete',
+            url:'http://localhost:8080/deleteProject?projectId='+this.state.projectId,
         }).then(()=>{
                 let user ='';
                 if ('STUDENT' === localStorage.getItem('typeOfUser')) {
@@ -27,7 +28,7 @@ class EndProject extends React.Component{
 
                 }
 
-                window.location = "/"+user+"/projects";
+                window.location = "/"+user+"/projects?projectId="+this.state.projectId;
             }
         )
 
@@ -41,4 +42,4 @@ class EndProject extends React.Component{
     }
 }
 
-export default EndProject;
+export default DeleteProject;

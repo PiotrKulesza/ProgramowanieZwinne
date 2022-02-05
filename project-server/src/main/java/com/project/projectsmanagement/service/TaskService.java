@@ -18,4 +18,8 @@ public interface TaskService {
 
     Mono<Void> putKanban(Integer taskId, String kanban);
 
+    Mono<Void> deleteTask(Integer taskId);
+
+    Mono<Void> deleteTaskByProject(Integer projectId);
+
 }

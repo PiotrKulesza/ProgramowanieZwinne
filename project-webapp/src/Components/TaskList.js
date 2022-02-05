@@ -37,16 +37,16 @@ class StudentsInProjectList extends React.Component{
             .then((data) =>{
                 this.setState({tasks: data});
                 this.setState( {newTasks:this.state.tasks.filter(function(element){
-                    return element.kanban == 'NEW';
+                    return element.kanban === 'NEW';
                 }).length});
                 this.setState( {doingTasks:this.state.tasks.filter(function(element){
-                        return element.kanban == 'DOING';
+                        return element.kanban === 'DOING';
                     }).length});
                 this.setState( {todoTasks:this.state.tasks.filter(function(element){
-                        return element.kanban == 'TODO';
+                        return element.kanban === 'TODO';
                     }).length});
                 this.setState( {completedTasks:this.state.tasks.filter(function(element){
-                        return element.kanban == 'COMPLETED';
+                        return element.kanban === 'COMPLETED';
                     }).length});
 
             });
@@ -57,16 +57,15 @@ class StudentsInProjectList extends React.Component{
         const options = {
             animationEnabled: true,
             exportEnabled: true,
-            theme: "dark1", //"light1", "dark1", "dark2"
+            theme: "dark1",
             title:{
-                text: "Wykres kanban"
+                text: "Wykres liczby zadań dla danego etapu"
             },
             axisY: {
                 includeZero: true
             },
             data: [{
-                type: "column", //change type to bar, line, area, pie, etc
-                //indexLabel: "{y}", //Shows y value on all Data Points
+                type: "column",
                 indexLabelFontColor: "white",
                 indexLabelPlacement: "outside",
                 dataPoints: [
@@ -91,7 +90,7 @@ class StudentsInProjectList extends React.Component{
                             <th>Id</th>
                             <th>Nazwa</th>
                             <th>Opis</th>
-                            <th>Kanban</th>
+                            <th>Etap</th>
                             <th>Działania</th>
 
                         </tr>
@@ -108,7 +107,9 @@ class StudentsInProjectList extends React.Component{
                                     <td>{task.opis}</td>
                                     <td>{task.kanban}</td>
                                     <td> <Button size="sm" variant="primary" href={"/"+this.state.userType+"/projects" +
-                                    "/taskList/editTask?projectId="+this.state.projectId+"&taskId="+task.taskId}>Edycja</Button>{' '}</td>
+                                    "/taskList/editTask?projectId="+this.state.projectId+"&taskId="+task.taskId}>Edycja</Button>{' '}
+                                    <Button size="sm" variant="danger" href={"/"+this.state.userType+"/projects" +
+                                    "/taskList/deleteTask?projectId="+this.state.projectId+"&taskId="+task.taskId}>Usuń</Button>{' '}</td>
                                 </tr>
 
                             ))

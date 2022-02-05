@@ -21,7 +21,9 @@ public class ProjectRouter {
                 .andRoute(POST("/addProject"),projectHandler::postProject)
                 .andRoute(POST("/addStudentToProject"),projectHandler::addStudentToProject)
                 .andRoute(PUT("/endProject"),projectHandler::endProject)
-                .andRoute(PUT("/updateProject"),projectHandler::updateProject);
+                .andRoute(PUT("/updateProject"),projectHandler::updateProject)
+                .andRoute(DELETE("/deleteProject"),projectHandler::deleteProject)
+                .andRoute(DELETE("/deleteStudentFromProject"),projectHandler::deleteStudentFromProject);
 
 
     }

@@ -8,8 +8,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.PUT;
-import static org.springframework.web.reactive.function.server.RequestPredicates.contentType;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
+
 import static org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
 
 @Configuration
@@ -26,7 +25,9 @@ public class StudentRouter {
 				.andRoute(DELETE("/students/{id}"), studentHandler::deleteStudent)
                 .andRoute(GET("/getStudentInProject"), studentHandler::getStudentInProject)
                 .andRoute(PUT("/updateStudent/{id}"), studentHandler::updateStudent)
-                .andRoute(POST("/postStudent"), studentHandler::postStudent);
+                .andRoute(POST("/postStudent"), studentHandler::postStudent)
+                .andRoute(DELETE("/deleteStudent/{id}"), studentHandler::deleteStudent)
+                ;
 
     }
 }

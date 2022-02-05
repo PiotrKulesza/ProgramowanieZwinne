@@ -87,4 +87,22 @@ public class ProjectHandler {
         return ServerResponse.badRequest().build();
     }
 
+    public Mono<ServerResponse> deleteProject(ServerRequest request) {
+        if(request.queryParam("projectId").isPresent())
+            return projectService
+                    .deleteProject(Integer.valueOf(request.queryParam("projectId").get()))
+                    .then(ServerResponse.noContent().build());
+        return ServerResponse.badRequest().build();
+    }
+
+    public Mono<ServerResponse> deleteStudentFromProject(ServerRequest request){
+
+        if(request.queryParam("projectId").isPresent() && request.queryParam("studentId").isPresent()){
+            return projectService.deleteStudentFromProject(Integer.valueOf(request.queryParam("projectId").get()),
+                    Integer.valueOf(request.queryParam("studentId").get()))
+                    .then(ServerResponse.noContent().build());
+        }
+        return ServerResponse.badRequest().build();
+    }
+
 }

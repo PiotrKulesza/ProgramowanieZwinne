@@ -5,10 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
-import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
-import static org.springframework.web.reactive.function.server.RequestPredicates.PUT;
-import static org.springframework.web.reactive.function.server.RequestPredicates.contentType;
+
+import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
 @Configuration
 public class TaskRouter {
@@ -20,6 +18,8 @@ public class TaskRouter {
                 .andRoute(GET("/getTaskById"),taskHandler::getTaskById)
                 .andRoute(POST("/addTask"),taskHandler::addTask)
                 .andRoute(PUT("/updateTask"),taskHandler::updateTask)
+                .andRoute(DELETE("/deleteTask"),taskHandler::deleteTask)
+                .andRoute(DELETE("/deleteTaskByProject"),taskHandler::deleteTaskByProject)
                 ;
     }
 }

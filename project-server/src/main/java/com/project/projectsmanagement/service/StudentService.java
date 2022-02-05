@@ -12,7 +12,7 @@ public interface StudentService {
 
     Mono<Student> getStudent(Integer studentId);
 
-    Mono<Void> deleteStudent(Integer studentId);
+    Mono<Void> deleteStudent(Integer studentId, Integer loginId);
 
     Mono<Student> getStudentByLogin(String email, String pass);
 

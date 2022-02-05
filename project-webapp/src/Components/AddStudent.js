@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import {Button, Card, Col, Form} from "react-bootstrap";
 
-class AddProject extends React.Component{
+class AddStudent extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -134,4 +134,4 @@ class AddProject extends React.Component{
     }
 }
 
-export default AddProject;
+export default AddStudent;

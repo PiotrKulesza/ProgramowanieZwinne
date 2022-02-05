@@ -114,6 +114,26 @@ public class CorsConfig implements WebFluxConfigurer {
                 .allowedOrigins("*")
                 .allowedMethods("POST")
                 .maxAge(3600);
+        corsRegistry.addMapping("/deleteProject")
+                .allowedOrigins("*")
+                .allowedMethods("DELETE")
+                .maxAge(3600);
+        corsRegistry.addMapping("/deleteTask")
+                .allowedOrigins("*")
+                .allowedMethods("DELETE")
+                .maxAge(3600);
+        corsRegistry.addMapping("/deleteTask")
+                .allowedOrigins("*")
+                .allowedMethods("DELETE")
+                .maxAge(3600);
+        corsRegistry.addMapping("/deleteStudent/{id}")
+                .allowedOrigins("*")
+                .allowedMethods("DELETE")
+                .maxAge(3600);
+        corsRegistry.addMapping("/deleteStudentFromProject")
+                .allowedOrigins("*")
+                .allowedMethods("DELETE")
+                .maxAge(3600);
 
 
     }

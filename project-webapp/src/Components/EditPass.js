@@ -63,7 +63,7 @@ class EditPass extends React.Component{
         return (
             <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header>
-                    <Button size="sm" href={"/"+this.state.userType} >
+                    <Button size="sm" href={"/"+this.state.userType+"/profile"} >
                         Powrót
                     </Button>
                 </Card.Header>

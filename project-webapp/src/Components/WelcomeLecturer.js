@@ -7,7 +7,7 @@ class WelcomeLecturer extends React.Component{
     render() {
         return (
             <Jumbotron className = "bg-dark text-light">
-                <h1>Witaj studencie!</h1>
+                <h1>Witaj Wykładowco!</h1>
                 <p>
                     ...
                 </p>

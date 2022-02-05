@@ -37,13 +37,25 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Mono<Void> deleteStudent(final Integer studentId) {
+	public Mono<Void> deleteStudent(Integer studentId, Integer loginId) {
 
 		return databaseClient
-				.sql("DELETE FROM student WHERE student_id = :studentId")
+				.sql("DELETE FROM project_student WHERE project_student.student_id = :studentId")
 				.bind("studentId",studentId)
 				.fetch().rowsUpdated()
-				.then().as(transactionalOperator::transactional);
+				.then().as(transactionalOperator::transactional)
+				.then(databaseClient
+						.sql("DELETE FROM student WHERE student.student_id = :studentId")
+						.bind("studentId",studentId)
+						.fetch().rowsUpdated()
+						.then().as(transactionalOperator::transactional))
+				.then(databaseClient
+						.sql("DELETE FROM login WHERE login.login_id = :loginId")
+						.bind("loginId",loginId)
+						.fetch().rowsUpdated()
+						.then().as(transactionalOperator::transactional));
+
+
 	}
 
 	@Override

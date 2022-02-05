@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import {Button, Card, Col, Form} from "react-bootstrap";
 
-class EditSurname extends React.Component{
+class AddStudentToProject extends React.Component{
     constructor(props) {
         super(props);
         const queryParams = new URLSearchParams(window.location.search);
@@ -24,7 +24,6 @@ class EditSurname extends React.Component{
 
     submitChange (event) {
 
-
         axios({
             method:'get',
             url:'http://localhost:8080/getStudentByNrIndeksu?nrIndeksu='+this.state.nrIndeksu,
@@ -44,16 +43,7 @@ class EditSurname extends React.Component{
                                         '&projectId='+this.state.projectId,
                                 }).then(()=>{
                                     window.location = "/lecturer/projects/studentList?projectId="+this.state.projectId;
-                                });
-
-                            //
-                        }
-                    )
-                ;
-                //window.location = "/lecturer/projects/studentList?projectId="+this.state.projectId;
-            }
-        )
-        ;
+                                });});});
 
         this.forceUpdate();
         event.preventDefault();
@@ -88,7 +78,7 @@ class EditSurname extends React.Component{
                     <Card.Footer>
                         <div >
                             <Button size="sm" variant="success" type="submit" style={{"textAlign":"center"}}>
-                                Zmień
+                                Dodaj
                             </Button>{" "}
                         </div>
                     </Card.Footer>
@@ -98,4 +88,4 @@ class EditSurname extends React.Component{
     }
 }
 
-export default EditSurname;
+export default AddStudentToProject;

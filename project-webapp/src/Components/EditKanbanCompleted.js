@@ -1,6 +1,6 @@
 import React from "react";
 import axios from 'axios';
-import {Button, Card, Col, Form} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 
 class EditKanbanCompleted extends React.Component{
     constructor(props) {

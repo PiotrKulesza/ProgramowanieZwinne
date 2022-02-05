@@ -1,7 +1,5 @@
 package com.project.projectsmanagement.controller;
 
-import java.net.URI;
-
 import com.project.projectsmanagement.model.Login;
 import com.project.projectsmanagement.model.Project;
 import org.springframework.http.MediaType;
@@ -36,11 +34,13 @@ public class StudentHandler {
 
 
 	public Mono<ServerResponse> deleteStudent(ServerRequest request) {
-		return Mono.just(studentService
-					.deleteStudent(Integer.parseInt(request.pathVariable("id"))))
+		if(request.queryParam("loginId").isPresent())
+
+		return studentService.deleteStudent(Integer.valueOf(request.pathVariable("id")),
+				Integer.valueOf(request.queryParam("loginId").get()))
 				.flatMap(val-> ServerResponse.noContent().build());
 
-
+		return ServerResponse.badRequest().build();
 	}
 
 	public Mono<ServerResponse> getStudentByLogin(ServerRequest request) {

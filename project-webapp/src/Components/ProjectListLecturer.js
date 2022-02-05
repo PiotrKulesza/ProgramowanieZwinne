@@ -72,7 +72,9 @@ class ProjectListLecturer extends React.Component{
                                         <Button variant="primary" size="sm" href={"/lecturer/projects/task" +
                                         "List?projectId="+project.projectId}>Zadania</Button>{' '}
                                         <Button variant="primary" size="sm" href={"/lecturer/projects/editProject" +
-                                        "?projectId="+project.projectId}>Edytuj</Button>
+                                        "?projectId="+project.projectId}>Edytuj</Button>{' '}
+                                        <Button variant="danger" size="sm" href={"/lecturer/projects/deleteProject" +
+                                        "?projectId="+project.projectId}>Usuń</Button>
                                    </td>
                                 </tr>
 

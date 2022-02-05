@@ -1,7 +1,5 @@
 package com.project.projectsmanagement.repositories;
 
-import com.project.projectsmanagement.model.Lecturer;
-import org.reactivestreams.Publisher;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;

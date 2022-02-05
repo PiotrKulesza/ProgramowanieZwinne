@@ -39,6 +39,10 @@ import EditProjectDescription from "./Components/EditProjectDescription";
 import EndProject from "./Components/EndProject";
 import WelcomeLecturer from "./Components/WelcomeLecturer";
 import WelcomeStudent from "./Components/WelcomeStudent";
+import DeleteProject from "./Components/DeleteProject";
+import DeleteTask from "./Components/DeleteTask";
+import DeleteStudent from "./Components/DeleteStudent";
+import DeleteStudentFromProject from "./Components/DeleteStudentFromProject";
 
 
 function App() {
@@ -80,7 +84,6 @@ function App() {
             <Route path={'/lecturer/studentList'} exact component={NavigationBarLecturer}/>
             <Route path={'/lecturer/editName'} exact component={NavigationBarLecturer}/>
             <Route path={'/lecturer/editSurname'} exact component={NavigationBarLecturer}/>
-            <Route path={'/lecturer/editPass'} exact component={NavigationBarLecturer}/>
             <Route path={'/lecturer/editPass'} exact component={NavigationBarLecturer}/>
             <Route path={'/lecturer/projects/addProject'} exact component={NavigationBarLecturer}/>
             <Route path={'/lecturer/studentList/addStudent'} exact component={NavigationBarLecturer}/>
@@ -126,6 +129,7 @@ function App() {
                             <Route path={'/student/projects/editProject/editProjectName'} exact component={EditProjectName}/>
                             <Route path={'/student/projects/editProject/editProjectDescription'} exact component={EditProjectDescription}/>
                             <Route path={'/student/projects/editProject/endProject'} exact component={EndProject}/>
+                            <Route path={'/student/projects/taskList/deleteTask'} exact component={DeleteTask}/>
 
 
                             <Route path={'/lecturer'} exact component={WelcomeLecturer}/>
@@ -153,6 +157,10 @@ function App() {
                             <Route path={'/lecturer/projects/editProject/editProjectName'} exact component={EditProjectName}/>
                             <Route path={'/lecturer/projects/editProject/editProjectDescription'} exact component={EditProjectDescription}/>
                             <Route path={'/lecturer/projects/editProject/endProject'} exact component={EndProject}/>
+                            <Route path={'/lecturer/projects/deleteProject'} exact component={DeleteProject}/>
+                            <Route path={'/lecturer/projects/taskList/deleteTask'} exact component={DeleteTask}/>
+                            <Route path={'/lecturer/studentList/deleteStudent'} exact component={DeleteStudent}/>
+                            <Route path={'/lecturer/projects/studentList/deleteStudent'} exact component={DeleteStudentFromProject}/>
 
                         </Switch >
                     </Col>

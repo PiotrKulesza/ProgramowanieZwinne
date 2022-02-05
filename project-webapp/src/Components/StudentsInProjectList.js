@@ -43,6 +43,7 @@ class StudentsInProjectList extends React.Component{
                             <th>Nazwisko</th>
                             <th>Indeks</th>
                             <th>Email</th>
+                            <th>Działania</th>
 
                         </tr>
                         </thead>
@@ -58,6 +59,9 @@ class StudentsInProjectList extends React.Component{
                                     <td>{student.nazwisko}</td>
                                     <td>{student.nrIndeksu}</td>
                                     <td>{student.login.email}</td>
+                                    <td><Button size="sm" variant="danger" href={"/lecturer/projects/studentList" +
+                                    "/deleteStudent?studentId="+student.studentId+
+                                    "&projectId="+this.state.projectId}>Usuń</Button>{' '}</td>
                                 </tr>
 
                             ))
