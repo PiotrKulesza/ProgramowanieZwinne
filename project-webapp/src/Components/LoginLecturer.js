@@ -48,7 +48,7 @@ class LoginLecturer extends React.Component {
     render() {
         return(
             <Card className="border border-dark bg-dark text-light">
-                <Card.Header>Zaloguj się</Card.Header>
+                <Card.Header>Zaloguj się jako wykładowca</Card.Header>
                 <Form onSubmit={this.submitLogin}>
                     <Card.Body>
                         <Form.Group>

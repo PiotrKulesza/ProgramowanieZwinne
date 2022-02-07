@@ -57,6 +57,9 @@ class AddStudentToProject extends React.Component{
     render() {
         return (
             <Card className={"border border-dark bg-dark text-white"}>
+                <Card.Header>
+                    <Button variant="primary" href={"/lecturer/projects/studentList?projectId="+this.state.projectId}>Powrót</Button>{' '}
+                </Card.Header>
                 <Form  onSubmit={this.submitChange}>
                     <Card.Body>
                         <Form.Row>

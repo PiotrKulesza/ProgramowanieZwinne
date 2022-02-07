@@ -29,6 +29,9 @@ class ProfilLecturer extends React.Component{
         return (
 
             <Card className={"border border-dark bg-dark text-white"}>
+                <Card.Header>
+                    <h4>Profil Wykładowcy</h4>
+                </Card.Header>
                 <Card.Body >
                     <Table border hover striped variant={"dark"} responsive>
                         <thead>

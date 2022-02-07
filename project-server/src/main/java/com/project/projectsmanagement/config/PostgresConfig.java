@@ -38,7 +38,8 @@ public class PostgresConfig extends AbstractR2dbcConfiguration {
     }
 
     @Bean
-    ReactiveTransactionManager reactiveTransactionManager(@Qualifier("myConnectionFactory") ConnectionFactory connectionFactory) {
+    ReactiveTransactionManager reactiveTransactionManager(@Qualifier("myConnectionFactory")
+                                                                  ConnectionFactory connectionFactory) {
         return new R2dbcTransactionManager(connectionFactory);
     }
 

@@ -74,7 +74,7 @@ class EditTask extends React.Component{
                             +"&projectId="+this.state.projectId}><FiEdit   /></a></td>
                         </tr>
                         <tr>
-                            <td>KANBAN</td>
+                            <td>Etap</td>
                             <td>{this.state.task.kanban} </td>
                             <td> {this.state.task.kanban !== "NEW" ?
                                 <Button size="sm" href={"/"+this.state.userType+"/projects/taskList/editTask/kanbanNEW?taskId="+this.state.taskId

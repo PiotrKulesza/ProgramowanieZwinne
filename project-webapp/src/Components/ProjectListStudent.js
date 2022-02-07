@@ -14,7 +14,6 @@ class ProjectListStudent extends React.Component{
     }
 
     componentDidMount() {
-        console.log(localStorage.getItem('loggedUser'))
         axios.get("http://localhost:8080/studentProjects/"+localStorage.getItem('loggedUser'))
             .then(response => response.data)
             .then((data) =>{
